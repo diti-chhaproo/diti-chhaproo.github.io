@@ -66,6 +66,17 @@ function CADPortfolio() {
             </h2>
           </div>
         </div>
+        <div className="max-w-3xl mx-auto mb-10 text-gray-300 text-center leading-relaxed space-y-3">
+          <p>
+            I have been using Computer-Aided Design for approximately four years, with Fusion 360 as my primary tool.
+            CAD has been central to my work as an Engineering Assistant at UIUC's Civil Engineering department, throughout
+            my internship at Furtados School of Music, and across coursework and personal projects at college.
+          </p>
+          <p>
+            It's a tool I thoroughly enjoy — it lets me translate ideas directly into tangible representations.
+            Below are some of the models I've built.
+          </p>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 place-content-center">
           {projects.map(project => (
             <div
