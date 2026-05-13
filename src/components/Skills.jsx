@@ -4,6 +4,7 @@ import resumeData from '../data/resumeData';
 
 const Skills = () => {
   const { skills } = resumeData;
+
   
   // Define skill levels for visualization (1-5 scale)
   const technicalSkillLevels = {
@@ -46,7 +47,7 @@ const Skills = () => {
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {/* Technical Skills */}
           <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg p-6 shadow-lg">
             <h3 className="text-xl font-semibold mb-6 flex items-center text-blue-400">
@@ -56,52 +57,49 @@ const Skills = () => {
               </svg>
               Technical Skills
             </h3>
-            
             <div className="space-y-4">
               {skills.technical.map((skill, index) => (
                 <div key={index} className="group">
                   <div className="flex justify-between items-center mb-1">
                     <span className="text-gray-300 group-hover:text-blue-300 transition-colors">{skill}</span>
-                    <span className="text-xs text-gray-400 font-mono">{technicalSkillLevels[skill] || 3}/5</span>
-                  </div>
-                  <div className="h-2 bg-gray-700 rounded-full overflow-hidden relative">
-                    <div 
-                      className="h-full bg-gradient-to-r from-blue-600 to-blue-400 rounded-full absolute left-0 top-0 group-hover:animate-pulse"
-                      style={{ width: `${((technicalSkillLevels[skill] || 3) / 5) * 100}%` }}
-                    ></div>
-                    {/* Circuit dots on skill bar */}
-                    <div className="absolute inset-0 flex items-center">
-                      {[...Array(5)].map((_, i) => (
-                        <div
-                          key={i}
-                          className={`h-2 w-2 rounded-full flex-shrink-0 mx-auto ${
-                            i < (technicalSkillLevels[skill] || 3) 
-                              ? 'bg-blue-200 shadow-glow' 
-                              : 'bg-gray-600'
-                          }`}
-                        ></div>
-                      ))}
-                    </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          
-          {/* Soft Skills */}
+
+          {/* Tools */}
           <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg p-6 shadow-lg">
             <h3 className="text-xl font-semibold mb-6 flex items-center text-blue-400">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 21m5.25-4l.75 4m-7.5-8.25l-3.5-3.5m15.5 3.5l3.5-3.5M12 3v4m0 0a4 4 0 014 4v0a4 4 0 01-4 4v0a4 4 0 01-4-4v0a4 4 0 014-4z" />
               </svg>
-              Soft Skills
+              Tools
             </h3>
-            
-            <div className="grid grid-cols-2 gap-4">
-              {skills.soft.map((skill, index) => (
+            <div className="space-y-4">
+              {skills.tools && skills.tools.map((tool, index) => (
+                <div key={index} className="group">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-gray-300 group-hover:text-blue-300 transition-colors">{tool}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Methods */}
+          <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-lg p-6 shadow-lg">
+            <h3 className="text-xl font-semibold mb-6 flex items-center text-blue-400">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+              </svg>
+              Methods
+            </h3>
+            <div className="grid grid-cols-1 gap-3">
+              {skills.methods.map((method, index) => (
                 <div key={index} className="flex items-center border border-gray-700 rounded-lg p-3 bg-gray-900/50 hover:border-blue-500 hover:bg-gray-800/70 transition-colors group">
                   <div className="h-3 w-3 rounded-full bg-blue-500 mr-3 group-hover:animate-pulse"></div>
-                  <span className="text-gray-300 group-hover:text-blue-300 transition-colors">{skill}</span>
+                  <span className="text-gray-300 group-hover:text-blue-300 transition-colors">{method}</span>
                 </div>
               ))}
             </div>
@@ -110,8 +108,8 @@ const Skills = () => {
         
         {/* Circuit board visualization */}
         <div className="mt-12 max-w-3xl mx-auto bg-gray-900/80 backdrop-blur-sm border border-gray-700 rounded-lg p-6 shadow-inner">
-          <h3 className="text-xl font-semibold mb-4 text-center text-blue-400">Circuit Knowledge Areas</h3>
-          
+          <h3 className="text-xl font-semibold mb-4 text-center text-blue-400">Domain Knowledge Areas</h3>
+
           <div className="relative h-64 circuit-board">
             {/* Base circuit board */}
             <div className="absolute inset-0 bg-[#102030] rounded-lg overflow-hidden">
@@ -120,36 +118,36 @@ const Skills = () => {
               <div className="absolute top-3/4 left-0 h-0.5 w-full bg-blue-500/30"></div>
               <div className="absolute left-1/4 top-0 w-0.5 h-full bg-blue-500/30"></div>
               <div className="absolute left-3/4 top-0 w-0.5 h-full bg-blue-500/30"></div>
-              
+
               {/* Circuit components */}
               <div className="absolute top-1/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2">
                 <div className="bg-gray-800 border border-blue-500 rounded-full h-16 w-16 flex items-center justify-center">
-                  <span className="text-blue-400 text-xs text-center">Circuit Design</span>
-                </div>
-              </div>
-              
-              <div className="absolute top-1/4 left-3/4 transform -translate-x-1/2 -translate-y-1/2">
-                <div className="bg-gray-800 border border-blue-500 rounded-lg h-16 w-16 flex items-center justify-center">
                   <span className="text-blue-400 text-xs text-center">Embedded Systems</span>
                 </div>
               </div>
-              
-              <div className="absolute top-3/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2">
-                <div className="bg-gray-800 border border-blue-500 h-16 w-16 flex items-center justify-center" style={{ clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)' }}>
-                  <span className="text-blue-400 text-xs text-center">Signal Processing</span>
+
+              <div className="absolute top-1/4 left-3/4 transform -translate-x-1/2 -translate-y-1/2">
+                <div className="bg-gray-800 border border-blue-500 rounded-lg h-16 w-16 flex items-center justify-center">
+                  <span className="text-blue-400 text-xs text-center">Graph Neural Networks</span>
                 </div>
               </div>
-              
+
+              <div className="absolute top-3/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2">
+                <div className="bg-gray-800 border border-blue-500 h-16 w-16 flex items-center justify-center" style={{ clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)' }}>
+                  <span className="text-blue-400 text-xs text-center">Control Systems</span>
+                </div>
+              </div>
+
               <div className="absolute top-3/4 left-3/4 transform -translate-x-1/2 -translate-y-1/2">
                 <div className="bg-gray-800 border border-blue-500 rounded h-16 w-16 flex items-center justify-center" style={{ clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)' }}>
-                  <span className="text-blue-400 text-xs text-center">Computer Engineering</span>
+                  <span className="text-blue-400 text-xs text-center">Edge Computer Vision</span>
                 </div>
               </div>
               
               {/* Central connector */}
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <div className="bg-blue-500/20 border-2 border-blue-500 rounded-full h-20 w-20 flex items-center justify-center animate-pulse">
-                  <span className="text-blue-300 text-xs text-center font-bold">Electrical Engineering</span>
+                  <span className="text-blue-300 text-xs text-center font-bold">Systems Engineering</span>
                 </div>
               </div>
             </div>

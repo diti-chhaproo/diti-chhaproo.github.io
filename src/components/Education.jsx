@@ -50,7 +50,7 @@ const Education = () => {
                 </div>
                 <div>
                   <h3 className="text-xl md:text-2xl font-bold text-white">{education.university}</h3>
-                  <p className="text-blue-400">{education.degree}</p>
+                  <p className="text-blue-400">{education.degree} | CS Minor | James Scholar</p>
                 </div>
               </div>
               
@@ -91,7 +91,7 @@ const Education = () => {
               <div className="mt-8 pt-6 border-t border-gray-700">
                 <h4 className="text-lg font-semibold mb-4 text-gray-200">Focus Areas</h4>
                 <div className="flex flex-wrap gap-2">
-                  {['Circuit Design', 'Electronics', 'Systems Engineering', 'Physics', 'Mathematics', 'Engineering Graphics'].map((area, index) => (
+                  {['Systems Engineering & Design', 'Computer Science', 'Physics', 'Optimization', 'Data Analysis', 'Electronics'].map((area, index) => (
                     <span key={index} className="bg-blue-900/30 text-blue-300 px-3 py-1 rounded-full text-sm border border-blue-800">
                       {area}
                     </span>

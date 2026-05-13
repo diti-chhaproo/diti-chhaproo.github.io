@@ -37,7 +37,7 @@ const Projects = () => {
               className="bg-gray-900/80 backdrop-blur-sm border border-gray-700 rounded-lg overflow-hidden shadow-lg group hover:border-blue-500 transition-colors"
             >
               {/* Header with circuit design */}
-              <div className="relative h-16 bg-gradient-to-r from-gray-800 to-gray-900 border-b border-gray-700 p-4 flex items-center">
+              <div className="relative h-24 bg-gradient-to-r from-gray-800 to-gray-900 border-b border-gray-700 p-4 flex items-center">
                 <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
                   <div className="absolute top-1/2 left-0 h-0.5 w-full bg-blue-900/30"></div>
                   <div className="absolute top-0 left-1/4 w-0.5 h-full bg-blue-900/30"></div>

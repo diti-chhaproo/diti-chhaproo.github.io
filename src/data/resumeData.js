@@ -1,67 +1,105 @@
-import { duration } from "@mui/material";
-
-// Import resume data directly from JSON file
 const resumeData = {
   personal_info: {
     name: "Diti Chhaproo",
     phone: "+1 (217) 819-0564",
-    email: "ditichhaproo@gmail.com",
+    email: "djc11@illinois.edu",
     linkedin: "linkedin.com/in/ditichhaproo"
   },
   education: {
     university: "University of Illinois Urbana-Champaign",
-    degree: "BSc in Systems Engineering and Design",
-    graduation_date: "May 2027",
-    gpa: "3.6/4.0",
+    degree: "BS in Systems Engineering and Design",
+    minor: "Computer Science",
+    honors: "James Scholar",
+    graduation_date: "May 2028",
+    gpa: "3.7/4.0",
     coursework: [
-      "Linear Algebra",
-      "Calc 2 & 3",
-      "Engineering Graphics & Design",
-      "Business Side of Engineering",
+      "Statics & Mechanics of Materials",
+      "Deterministic Models in Optimization",
+      "Analysis of Data",
+      "University Physics: Mechanics, E&M, Quantum",
       "Introduction to Electronics",
-      "University Physics: Mechanics, Elec & Mag, Quantum"
+      "Introduction to Computing (C++)"
     ]
   },
+  research: [
+    {
+      lab: "Engineering System Design Lab (ESDL)",
+      advisor: "Prof. James Allison",
+      role: "Research Assistant",
+      duration: "September 2025 – Present",
+      description: [
+        "Building a graph attention network (3 heads, 2 layers) over 847-node thermal management system graphs to automate BEV architecture generation, replacing brute-force search across 150+ vehicle and 21,000+ aircraft configurations",
+        "A 15-paper literature review on graph generation and NSC-based constraint modeling helped shrink the viable candidate space from 150+ configurations down to a tractable generative design scope, feeding directly into early TMS system requirements"
+      ]
+    }
+  ],
+  internships: [
+    {
+      company: "HDF Group",
+      role: "Product Systems Engineer Intern",
+      duration: "Spring 2026 – Present",
+      description: [
+        "Working as a Product Systems Engineer intern within the HDF ecosystem, contributing to systems-level product development and engineering workflows"
+      ]
+    },
+    {
+      company: "Furtados School of Music",
+      role: "Embedded Systems Engineering Intern",
+      duration: "April 2025 – August 2025",
+      description: [
+        "Architected a space-constrained embedded MIDI interface on Raspberry Pi inside a 320×185×48 mm enclosure — routing USB-MIDI and DIN-5 signal flow from hardware to a cloud grading service with under 60 ms end-to-end latency across a 250K+ user deployment",
+        "Owned system requirements definition, led SolidWorks enclosure prototyping against a ₹4,200 BOM target, and validated the full hardware-software stack with 130+ users"
+      ]
+    },
+    {
+      company: "CMS Info Systems",
+      role: "Systems Engineering Intern",
+      duration: "June 2024 – August 2024",
+      description: [
+        "Designed and validated YOLOv5 detection threshold logic (post-NMS confidence 0.72) for an edge CV system monitoring 70K ATM CCTV feeds — achieving 98% accuracy and a 3.8% false positive rate at 34 ms/frame on Jetson Nano",
+        "Validated system readiness through edge inference benchmarks, failure mode analysis, and rollout scoping, confirming the system was ready for distributed deployment across variable field conditions"
+      ]
+    }
+  ],
   projects: [
+    {
+      title: "6-DOF Robotic Arm — Autonomous Waste Management",
+      role: "Systems Engineer",
+      duration: "September 2025 – Present",
+      description: [
+        "Implementing closed-loop PID control at 200 Hz in C++ for a Raspberry Pi-driven 6-DOF arm embedded in an autonomous waste management system",
+        "Sole SE across mechanical design, embedded software, and systems integration — managing all three engineering layers end to end",
+        "Cut structural mass by 23% and improved robustness by 18% through geometry and material trade-offs in Fusion360; documented architecture in SysML"
+      ]
+    },
+    {
+      title: "Illinois Business Consulting",
+      role: "Project Manager",
+      duration: "September 2024 – Present",
+      description: [
+        "Designed university partnership frameworks for KPMG and directed a cybersecurity growth engagement for FraterIT — owning program scoping and cross-functional stakeholder coordination on both",
+        "Delivered structured requirements documentation and market segmentation analysis across both client engagements"
+      ]
+    },
     {
       title: "Orbital Playground",
       role: "Creator & Developer",
-      duration: "May 2025 - June 2025",
-      description: "Developed a Python toolkit simulating rocket propulsion with 150+ mission scenarios across multiple propulsion modes and destinations.",
+      duration: "May 2025 – June 2025",
+      description: "Built a Python simulation toolkit for rocket propulsion and mission planning, spanning 150+ mission scenarios across multiple propulsion modes and destinations."
     },
     {
       title: "Goldman Sachs Possibilities Summit",
       role: "Selected Participant",
-      duration: "January 2025 - Present",
-      description: "Selected for the Women's Possibilities Summit with a 4% acceptance rate, gaining insights into financial markets, leadership, and career development from industry experts."
-    },
-    {
-      title: "Illinois Business Consulting",
-      role: "Experienced Consultant",
-      duration: "September 2024 – Present",
-      description: [
-        "Consulted for a strategic partnership project underlying the 7 frontiers of technology alongside a Big Four Corporation",
-        "Worked with a team where we interviewed 50+ industry experts and recommended frameworks to secure the company's evolution in this growing field",
-        "Conducted cost analysis and investment optimization for a global logistics firm in the Gulf region"
-      ]
+      duration: "January 2025",
+      description: "Selected for the Goldman Sachs Women's Possibilities Summit (4% acceptance rate), gaining direct exposure to financial markets, leadership, and career development from industry leaders."
     },
     {
       title: "Project Kareeb",
       role: "Founder",
-      duration: "May 2023 - August 2024",
+      duration: "May 2023 – August 2024",
       description: [
-        "Developed a holistic curriculum for 25+ underprivileged students with parental engagement",
-        "Introduced and conducted health and sex-education lectures as I tutored young girls from humble backgrounds with STEM experiments whilst completing 70 hours of community service."
-      ]
-    },
-    {
-      title: "Global Confluence MUN",
-      role: "Secretary General",
-      duration: "May 2023 - August 2024",
-      description: [
-        "Established a 40-member secretariat and spearheaded the organisation of one of Mumbai's most esteemed MUNs, ensuring exceptional event management and participant engagement.",
-        "Drove a marketing campaign (400+ attendees, 30K+ reach) for event growth.",
-        "Facilitated a high-level meeting with UN Ambassador Parminder Singh to discuss active relief efforts in the Russo-Ukraine war, strengthening the event's educational value and international prestige."
+        "Developed a holistic curriculum for 25+ students from underserved communities, incorporating parental engagement and hands-on STEM experiments",
+        "Led health and sex-education sessions alongside STEM tutoring, completing 70+ hours of community service"
       ]
     }
   ],
@@ -69,63 +107,47 @@ const resumeData = {
     {
       title: "Effect of tyre materials on self-balancing robot",
       authors: "Diti Chhaproo, Reetu Jain",
-      date: "May 2023 - August 2023",
+      date: "August 2023",
       publisher: "International Journal of Software & Hardware Research in Engineering (IJSHRE)"
-    }
-  ],
-  internships: [
-    {
-      company: "Vishnu Prasad Research Center (VPRC)",
-      duration: "May 2025 – Present",
-      description: [
-        "Collaborating with leading scientists and the Government of India, contributing to the development of quantum tunneling frameworks for a planned 2000 km quantum communication network."
-      ]
-    },
-    {
-      company: "Illinois Business Consulting - Senior Consultant",
-      duration: "September 2024 – Present",
-      description: [
-        "Consulting for a strategic partnership project underlying the 7 frontiers of technology alongside a Big Four Corporation",
-        "Working with a team where we interviewed 50+ industry experts and recommended frameworks to secure the company's evolution in this growing field",
-        "Conducted cost analysis and investment optimization for a global logistics firm in the Gulf region"
-      ]
-    },
-    {
-      company: "CMS Info Systems - Software Development Intern",
-      duration: "July 2023–August 2023",
-      description: [
-        "Created datasets of face masks, covers and helmets to train the RaspberryPi model that would be used with 70,000 ATM CCTV cameras to conduct data analysis",
-        "Learned the applications of the software in-depth and presented a finished software to the CMS executive board which executed with 98% accuracy"
-      ]
     }
   ],
   skills: {
     technical: [
-      "C++",
       "Python",
+      "C++",
+      "MATLAB",
+      "SQL",
+      "Raspberry Pi",
       "Arduino",
-      "Java",
-      "HTML",
-      "Basic IBM Qiskit",
-      "MS Excel",
-      "MS Access",
-      "Fusion 360 Senior Automation CAD",
-      "Fast-Fourier transform"
+      "YOLOv5",
+      "Docker",
+      "LaTeX",
+      "SysML"
     ],
-    soft: [
-      "Literature Review",
-      "Experimental Design",
-      "Project Management",
-      "Cold Calling",
-      "Event Planning",
-      "Leadership",
-      "Team Management",
-      "Content Writing"
+    tools: [
+      "Fusion360",
+      "SolidWorks",
+      "Git",
+      "Tableau",
+      "Excel",
+      "AWS",
+      "VS Code",
+      "JIRA"
+    ],
+    methods: [
+      "Systems Requirements Definition",
+      "Verification & Validation",
+      "Design Trade-off Analysis",
+      "Failure Mode Analysis",
+      "Hardware-Software Integration",
+      "Technical Documentation"
     ]
   },
   honors: [
-    "High School Valedictorian",
-    "EKPHARSIS-II: Poetry National Winner for 'Dali and I - his mighty dream'"
+    "Goldman Sachs Possibilities Summit",
+    "James Scholar — UIUC Honors Program",
+    "Perplexity UIUC Campus Partner",
+    "EKPHARSIS-II National Poetry Winner — 'Dali and I - his mighty dream'"
   ]
 };
 

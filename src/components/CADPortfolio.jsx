@@ -26,6 +26,18 @@ const projects = [
   { type: 'video', src: '/assets/videos/Functionality demo.mp4', alt: 'Functionality Demo' }
     ]
   },
+  {
+    id: 3,
+    title: 'Conveyor Belt',
+    description: 'Part of ongoing CAD work at UIUC\'s Civil Engineering department — running geometry and material trade-off analysis to optimize structural components for robustness and weight. Click to expand.',
+    date: '2025',
+    images: ['/assets/images/whole belt.png'],
+    modalMedia: [
+      { type: 'image', src: '/assets/images/whole belt.png', alt: 'Whole Belt' },
+      { type: 'image', src: '/assets/images/face.png', alt: 'Belt Face' },
+      { type: 'image', src: '/assets/images/robot.png', alt: 'Robot' },
+    ]
+  },
   // Add more projects as needed
 ];
 
@@ -61,7 +73,13 @@ function CADPortfolio() {
               className="bg-gray-900 rounded-lg shadow-lg hover:shadow-blue-400/40 cursor-pointer p-4 border border-blue-800 transition-all duration-300 transform hover:scale-110"
               onClick={() => setSelectedProject(project)}
             >
-              <img src={project.images[0]} alt={project.title} className="w-full h-40 object-cover rounded mb-4 border border-blue-700 transition-all duration-300" />
+              {project.images && project.images.length > 0 ? (
+                <img src={project.images[0]} alt={project.title} className="w-full h-40 object-cover rounded mb-4 border border-blue-700 transition-all duration-300" />
+              ) : (
+                <div className="w-full h-40 rounded mb-4 border border-blue-700 bg-gradient-to-br from-gray-800 to-blue-950 flex items-center justify-center">
+                  <span className="text-blue-400 text-sm font-mono">Coming Soon</span>
+                </div>
+              )}
               <h3 className="text-xl font-semibold text-blue-300 font-mono text-center">{project.title}</h3>
             </div>
           ))}
@@ -106,6 +124,9 @@ function CADPortfolio() {
                       if (media.src === '/assets/videos/Functionality demo.mp4') caption = 'Functionality Demo';
                       if (media.src === '/assets/images/chassis.png') caption = 'Chassis';
                       if (media.src === '/assets/images/bot.png') caption = 'Bot';
+                      if (media.src === '/assets/images/whole belt.png') caption = 'Whole Belt';
+                      if (media.src === '/assets/images/face.png') caption = 'Belt Face';
+                      if (media.src === '/assets/images/robot.png') caption = 'Robot';
                       if (media.type === 'pdf') caption = 'Project PDF';
                       return (
                         <div key={idx} className="flex flex-col items-center">

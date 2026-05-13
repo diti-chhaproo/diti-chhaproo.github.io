@@ -8,6 +8,7 @@ const Header = () => {
   { id: "about", label: "About" },
   { id: "education", label: "Education" },
   { id: "skills", label: "Skills" },
+  { id: "research", label: "Research" },
   { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
   { id: "portfolio", label: "Portfolio" },
@@ -40,15 +41,7 @@ const Header = () => {
           : 'bg-transparent py-4'
       }`}
     >
-      <div className="container mx-auto px-4 flex justify-between items-center">
-        <div 
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
-          className="text-xl md:text-2xl font-bold text-blue-400 cursor-pointer flex items-center"
-        >
-          <span className="inline-block w-3 h-3 bg-blue-400 rounded-full mr-2 animate-pulse"></span>
-          <span className="font-mono">D.CHHAPROO</span>
-        </div>
-        
+      <div className="container mx-auto px-4 flex justify-center md:justify-center items-center">
         {/* Desktop Navigation */}
         <nav className="hidden md:block">
           <ul className="flex space-x-6">

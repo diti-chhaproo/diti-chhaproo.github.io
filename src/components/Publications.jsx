@@ -77,7 +77,7 @@ const Publications = () => {
                   <div className="flex items-center pt-3 border-t border-gray-700">
                     <div className="bg-blue-900/40 text-blue-300 text-xs px-3 py-1 rounded-full font-medium border border-blue-800 flex items-center">
                       <CircuitNode size={2} className="mr-1" />
-                      <span>Electrical Engineering</span>
+                      <span>Mechanical Systems</span>
                     </div>
                     <div className="ml-2 bg-blue-900/40 text-blue-300 text-xs px-3 py-1 rounded-full font-medium border border-blue-800 flex items-center">
                       <CircuitNode size={2} className="mr-1" />
@@ -92,7 +92,7 @@ const Publications = () => {
             <div className="mt-8 pt-6 border-t border-gray-700">
               <h4 className="text-lg font-semibold mb-4 text-blue-400">Research Interests</h4>
               <div className="flex flex-wrap gap-2">
-                {["Circuit Design", "Robotics", "Signal Processing", "Embedded Systems", "Quantum Computing", "AI in Engineering"].map((area, index) => (
+                {["Systems Engineering", "Robotics", "Graph Neural Networks", "Embedded Systems", "Generative Design", "AI in Engineering"].map((area, index) => (
                   <div key={index} className="bg-blue-900/30 text-blue-300 px-3 py-1 rounded-full text-sm border border-blue-800 flex items-center">
                     <CircuitNode size={3} className="mr-2" />
                     <span>{area}</span>

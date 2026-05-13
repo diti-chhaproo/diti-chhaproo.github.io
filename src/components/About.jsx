@@ -41,37 +41,33 @@ const About = () => {
             </div>
             
             <p className="text-gray-300 mb-4">
-              I'm an Systems Engineering student at the University of Illinois Urbana-Champaign. I am driven to learning more about hardware design, quantum algorithms and astrophysics.
+              I'm a Systems Engineering and Design student at the University of Illinois Urbana-Champaign, with a CS minor and James Scholar standing. I'm drawn to the space where hardware, software, and system-level thinking intersect — particularly in embedded systems, autonomous platforms, and computational design.
             </p>
-            
+
             <p className="text-gray-300 mb-4">
-              With experience in technical and strategic consulting, research, and project management, I bring a multidisciplinary approach to engineering challenges. I've worked on projects ranging from self-balancing robots to software development for cloud-based music grading systems.
+              My work spans research, engineering internships, and hands-on project leadership. I've built embedded MIDI interfaces under tight latency and BOM constraints, validated edge computer vision systems at scale, and am currently developing a 6-DOF robotic arm as the sole systems engineer on the project.
             </p>
-            
+
             <p className="text-gray-300">
-              I'm particularly interested in the intersection of electrical engineering with cutting-edge technologies like quantum computing and AI. My goal is to develop innovative solutions that can make a positive impact on society through thoughtful engineering and design!
+              At the ESDL research lab, I apply graph neural networks to automate thermal architecture generation for electric vehicles — bridging machine learning and systems design. Outside of technical work, I write, and my poem 'Dali and I - his mighty dream' won at EKPHARSIS-II nationally.
             </p>
-            
+
             <div className="mt-6 pt-6 border-t border-gray-700">
               <h3 className="text-xl font-semibold mb-4 text-blue-400">Technical Skills</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-8 text-gray-300 text-base">
                 <ul className="space-y-2 list-disc pl-5">
-                    <li>C++</li>
-                    <li>Python</li>
-                    <li>Arduino</li>
-                    <li>Java</li>
-                    <li>HTML</li>
-                    <li>Electrical Engineering</li>
-                    <li>AutoCAD</li>
+                    <li>Python &amp; C++</li>
+                    <li>MATLAB &amp; SQL</li>
+                    <li>Raspberry Pi &amp; Arduino</li>
+                    <li>YOLOv5 &amp; Docker</li>
+                    <li>SysML &amp; LaTeX</li>
                   </ul>
                   <ul className="space-y-2 list-disc pl-5">
-                    <li>Design Concepts</li>
-                    <li>Calculations</li>
-                    <li>MS Excel</li>
-                    <li>MS Word</li>
-                    <li>MS PowerPoint</li>
-                    <li>Fast-Fourier Transform</li>
-                    <li>Literature Review</li>
+                    <li>Fusion360 &amp; SolidWorks</li>
+                    <li>Git &amp; JIRA</li>
+                    <li>AWS &amp; Tableau</li>
+                    <li>Systems Requirements &amp; V&amp;V</li>
+                    <li>Failure Mode Analysis</li>
                 </ul>
               </div>
             </div>

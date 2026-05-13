@@ -54,7 +54,8 @@ const Experience = () => {
                     {internship.duration}
                   </div>
                   
-                  <h3 className="text-xl font-semibold text-white mb-2">{internship.company}</h3>
+                  <h3 className="text-xl font-semibold text-white mb-1">{internship.role}</h3>
+                  <p className="text-blue-400 text-sm mb-2">{internship.company}</p>
                   
                   <div className="space-y-3 mt-4">
                     {internship.description.map((point, idx) => (
