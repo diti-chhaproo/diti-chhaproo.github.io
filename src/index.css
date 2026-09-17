@@ -172,3 +172,7 @@
   .home-site .intro-copy h1>span{white-space:normal}
   .home-site .right-leaf{position:relative;clear:both;margin-top:12px;padding-top:32px}
 }
+
+.project-card a.project-image{cursor:pointer}
+
+.case-hero-text-only{display:block;max-width:900px}.case-hero-text-only>.eyebrow{margin-top:32px}.case-hero-text-only .case-lead{margin-top:24px}

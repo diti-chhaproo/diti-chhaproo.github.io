@@ -43,7 +43,8 @@ export const projects = [
   {
     slug: 'esdl-research',
     track: 'engineer',
-    artwork: 'esdl-research',
+    artwork: 'research-gnn.png',
+    report: '/assets/docs/research-summer-project.pdf',
     title: 'Thermal Architecture Generation',
     subtitle: 'Automating thermal system design for EVs and aircraft',
     category: 'AI / Systems Engineering',
@@ -60,7 +61,7 @@ export const projects = [
       ['Build the generation pipeline', 'Designed a GNN+VAE architecture to generate graph-structured thermal system configurations, producing 100% feasible and connected outputs across 4 tested algorithms for 150+ EV and 21,000+ aircraft candidates.'],
       ['Validate at scale', 'Built a 500-trial validation harness benchmarking structural diversity across 200 configurations per method. Iterated on algorithm design based on feasibility rate and diversity metrics. Publication in progress.']
     ],
-    artifacts: ['GNN+VAE generation pipeline', '500-trial validation harness', 'Algorithm benchmarking results'],
+    artifacts: ['Thermal architecture graph comparison'],
     takeaways: [
       'Reverse-engineering constraint rules from validation logic was faster and more accurate than defining them from scratch.',
       'Structural diversity matters as much as feasibility: a pipeline that produces valid but repetitive configurations isn’t useful.',
@@ -70,7 +71,8 @@ export const projects = [
   {
     slug: 'awms',
     track: 'engineer',
-    artwork: 'awms',
+    artwork: 'whole belt.png',
+    visuals: ['whole belt.png', 'whole belt.png', 'face.png', 'robot.png'],
     title: 'Autonomous Waste Management System',
     subtitle: 'Physical autonomous sorting system for civil engineering',
     category: 'Systems Engineering / Mechanical',
@@ -87,7 +89,7 @@ export const projects = [
       ['Design the conveyor', 'Designed the conveyor subsystem in Fusion360, sizing belt geometry, cleat spacing, and drive enclosures against throughput and clearance requirements. Validated via motion simulation before fabrication.'],
       ['Test and optimize', 'Executed 9 V&V procedures across mechanical, software, and sensor integration layers. Applied material trade-off analysis to achieve 23% mass reduction and 18% robustness improvement.']
     ],
-    artifacts: ['SysML system model', 'Fusion360 conveyor design', 'V&V test results'],
+    artifacts: ['Complete conveyor CAD model', 'Conveyor belt face', 'Robot assembly CAD model'],
     takeaways: [
       'Modeling first: SysML upfront caught interface mismatches before fabrication made them expensive.',
       'Simulation before fabrication saved multiple physical iterations on the conveyor design.',
@@ -97,7 +99,8 @@ export const projects = [
   {
     slug: 'hdf-group-eng',
     track: 'engineer',
-    artwork: 'hdf-group',
+    artwork: 'hdf-architecture.png',
+    nda: true,
     title: 'HDF Group: Validation Pipeline',
     subtitle: 'Manufacturing data traceability and process validation at scale',
     category: 'Systems Engineering / Data',
@@ -124,7 +127,8 @@ export const projects = [
   {
     slug: 'hdf-group-pm',
     track: 'product',
-    artwork: 'hdf-group',
+    artwork: 'hdf-architecture.png',
+    nda: true,
     title: 'HDF Group: Pipeline PM',
     subtitle: 'Driving adoption for a NASA and Boeing validation pipeline',
     category: 'Product Management / Data',
@@ -151,7 +155,8 @@ export const projects = [
   {
     slug: 'furtados-eng',
     track: 'engineer',
-    artwork: 'furtados',
+    artwork: 'furtados-workshop.png',
+    nda: true,
     title: 'Furtados: Embedded MIDI Hardware',
     subtitle: 'Design-to-production integration for a 250K+ user music product',
     category: 'Systems Engineering / Hardware',
@@ -178,7 +183,8 @@ export const projects = [
   {
     slug: 'furtados-pm',
     track: 'product',
-    artwork: 'furtados',
+    artwork: 'furtados-workshop.png',
+    nda: true,
     title: 'Furtados: MIDI Product PM',
     subtitle: 'Full product development cycle for a 250K+ user music experience',
     category: 'Product Management / Hardware',
@@ -205,7 +211,10 @@ export const projects = [
   {
     slug: 'cms-eng',
     track: 'engineer',
-    artwork: 'cms',
+    artwork: 'cms-illustration.svg',
+    hideImages: true,
+    thumbnail: 'cms-illustration.svg',
+    nda: true,
     title: 'CMS Info Systems: Inspection System',
     subtitle: 'Field-scale deployment validation across 70K endpoints',
     category: 'Systems Engineering',
@@ -232,7 +241,10 @@ export const projects = [
   {
     slug: 'cms-pm',
     track: 'product',
-    artwork: 'cms',
+    artwork: 'cms-illustration.svg',
+    hideImages: true,
+    thumbnail: 'cms-illustration.svg',
+    nda: true,
     title: 'CMS Info Systems: Deployment PM',
     subtitle: 'Defining launch criteria for a 70K-endpoint rollout',
     category: 'Product Management',
@@ -284,16 +296,19 @@ export const projects = [
     ]
   },
   {
-    slug: 'whai-tech',
+    slug: 'stealth-startup',
+    nda: true,
+    hideImages: true,
+    thumbnail: 'stealth-illustration.svg',
     track: 'product',
-    artwork: 'whai-tech',
-    title: 'Whai Tech',
+    artwork: 'stealth-illustration.svg',
+    title: 'San Francisco - Stealth Startup',
     subtitle: 'LLM orchestrator agent for small businesses',
     category: 'Product Management / AI',
     tools: 'PRDs · User research · Agile · Shopify API',
     role: 'Product Manager',
     timeline: 'Feb 2025 to May 2025',
-    context: 'Whai Tech startup',
+    context: 'San Francisco stealth startup',
     lead: 'Defined the product strategy and drove the full PM cycle for a production LLM orchestrator agent,',
     emphasis: 'taking activation from 52% to 74% and 4-week retention from 34% to 52%.',
     summary: 'Ran 50+ customer interviews with Chicago SMBs, prioritized a Shopify API redesign based on findings, and tracked post-launch metrics that confirmed the changes worked.',
@@ -312,28 +327,31 @@ export const projects = [
   },
   {
     slug: 'ibc',
+    nda: true,
+    hideImages: true,
     track: 'product',
-    artwork: 'ibc',
+    artwork: 'ibc-team.jpg',
+    thumbnail: 'ibc-team.jpg',
     title: 'Illinois Business Consulting',
-    subtitle: 'KPMG, Marmon Group, and FraterIT engagements',
+    subtitle: 'Big 4, MNC division, and cybersecurity startup engagements',
     category: 'Project Management / Strategy',
     tools: 'Power BI · GTM frameworks · Market research · Stakeholder management',
     role: 'Project Manager',
     timeline: 'Sep 2024 to May 2025',
     context: 'Illinois Business Consulting, UIUC',
-    lead: 'Led three distinct client engagements spanning KPMG talent pipeline design, Marmon Group office location analysis, and FraterIT full GTM strategy,',
+    lead: 'Led three distinct client engagements spanning Big 4 talent pipeline design, MNC division office location analysis, and cybersecurity startup full GTM strategy,',
     emphasis: 'each requiring different analytical frameworks and stakeholder management approaches.',
-    summary: 'Designed university partnership frameworks for KPMG, built Power BI cluster maps and facilities models for a $400K Marmon office location decision, and led a 10-person team to deliver a full GTM strategy for FraterIT.',
-    problem: 'Three structurally different problems: KPMG needed a repeatable framework for university partnerships; Marmon needed data-driven office location analysis under a $400K budget constraint; FraterIT needed a GTM strategy from scratch with no prior market research.',
+    summary: 'Designed university partnership frameworks for Big 4, built Power BI cluster maps and facilities models for a $400K MNC division office location decision, and led a 10-person team to deliver a full GTM strategy for cybersecurity startup.',
+    problem: 'Three structurally different problems: Big 4 needed a repeatable framework for university partnerships; MNC division needed data-driven office location analysis under a $400K budget constraint; cybersecurity startup needed a GTM strategy from scratch with no prior market research.',
     approach: [
-      ['KPMG', 'Designed university partnership frameworks architecting recruiting pipelines, case competition sponsorship models, and research collaboration structures to formalize their academic talent pipeline.'],
-      ['Marmon Group', 'Led technical analysis for new office location: built cluster maps, facilities planning models, and cost/manpower constraint analyses in Power BI against a $400K budget.'],
-      ['FraterIT', 'Led a 10-person team through ICP definition, competitive positioning, pricing strategy, sales playbook, and channel strategy. Delivered a prioritized market-entry strategy directly to the founder.']
+      ['Big 4', 'Designed university partnership frameworks architecting recruiting pipelines, case competition sponsorship models, and research collaboration structures to formalize their academic talent pipeline.'],
+      ['MNC division', 'Led technical analysis for new office location: built cluster maps, facilities planning models, and cost/manpower constraint analyses in Power BI against a $400K budget.'],
+      ['cybersecurity startup', 'Led a 10-person team through ICP definition, competitive positioning, pricing strategy, sales playbook, and channel strategy. Delivered a prioritized market-entry strategy directly to the founder.']
     ],
-    artifacts: ['KPMG partnership framework', 'Marmon Power BI cluster maps', 'FraterIT GTM strategy and playbook'],
+    artifacts: ['Big 4 partnership framework', 'MNC division Power BI cluster maps', 'cybersecurity startup GTM strategy and playbook'],
     takeaways: [
-      'Framework design for KPMG required understanding what they actually valued in university partnerships, not just what they asked for.',
-      'The Marmon location decision depended more on manpower constraints than cost: the Power BI model made that visible.',
+      'Framework design for Big 4 required understanding what they actually valued in university partnerships, not just what they asked for.',
+      'The MNC division location decision depended more on manpower constraints than cost: the Power BI model made that visible.',
       'A 10-person team on an ambiguous problem needs a structure for disagreement, not just for execution.'
     ]
   }
