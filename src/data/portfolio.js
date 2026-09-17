@@ -1,7 +1,8 @@
 export const socials = {
   linkedin: 'https://www.linkedin.com/in/ditichhaproo/',
   github: 'https://github.com/diti-chhaproo',
-  email: 'mailto:diti@illinois.edu'
+  email: 'mailto:ditichhaproo@gmail.com',
+  schoolEmail: 'mailto:djc11@illinois.edu'
 };
 
 export const tracks = {
@@ -15,7 +16,7 @@ export const projects = [
     slug: 'manuloop',
     track: 'engineer',
     artwork: 'manuloop',
-    visuals: ['manuloop-workflow', 'manuloop-sysml-1', 'manuloop-sysml-2', 'manuloop-sysml-3', 'manuloop-dashboard'],
+    visuals: ['manuloop-dashboard', 'manuloop-workflow', 'manuloop-sysml-1', 'manuloop-sysml-2', 'manuloop-sysml-3'],
     title: 'ManuLoop',
     subtitle: 'Closed-loop DFM analysis for manufactured parts',
     category: 'Manufacturing / AI',
@@ -32,7 +33,7 @@ export const projects = [
       ['Encode the constraints', 'Encoded NADCA Publication 402 manufacturability constraints as geometric DFM checks against the classified geometry. Resolved a false-violation bug at vertex convergences via root cause analysis.'],
       ['Validate end-to-end', 'Validated the full pipeline against real GrabCAD production parts to confirm generalization beyond training data. Documented findings for engineering handoff.']
     ],
-    artifacts: ['System workflow overview', 'SysML architecture view', 'Context and interaction model', 'Requirements verification traceability', 'Manufacturability dashboard'],
+    artifacts: ['System workflow overview', 'SysML architecture view', 'Context and interaction model', 'Requirements verification traceability'],
     takeaways: [
       'Real-world CAD assemblies don’t look like synthetic training data — extending the pipeline required deliberate effort.',
       'Root cause analysis on the false-violation bug revealed a geometric edge case at vertex convergences that wouldn’t have been caught by testing alone.',
