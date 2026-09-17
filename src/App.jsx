@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { projects, tracks, socials } from './data/portfolio';
 
+const normalizeTrack = (track) => (track === 'product' ? 'builder' : track);
 const href = (route = '') => `#/${route}`;
 function scrollToSection(id) {
   const section = document.getElementById(id);
@@ -14,7 +15,7 @@ function SectionLink({ section, children, className }) {
 }
 function Nav({route, section}) {
   const isHome = !route || route === 'about';
-  const active = route.startsWith('work/') ? projects.find(p => route === `work/${p.slug}`)?.track : route;
+  const active = route.startsWith('work/') ? normalizeTrack(projects.find(p => route === `work/${p.slug}`)?.track) : normalizeTrack(route);
   const items = [
     { label: 'About', target: '#/', key: 'about', color: 'rose' },
     { label: 'Engineer', target: '#/engineer', key: 'engineer', color: 'peach' },
@@ -42,7 +43,12 @@ function Home() {
   </section></>;
 }
 function ProjectCard({project:p}) { const art=p.artwork||p.slug; return <a className="project-card" href={href(`work/${p.slug}`)}><div className="project-image"><img src={`/assets/portfolio/${art}.svg`} alt={`Illustrative placeholder for ${p.title}`} loading="lazy"/><span className="image-caption">Read the chapter</span></div><div className="card-text"><span className="eyebrow">{p.category}</span><h3>{p.title}</h3><p>{p.summary}</p></div></a>; }
-function Track({track}) { const t=tracks[track]; return <><section className="track-hero"><a className="text-link" href={href()}>The collected works</a><p className="eyebrow">Vol. {t.volume} / {track==='engineer'?'Engineering':'Product management'}</p><h1>{track==='engineer'?'Engineering':'Product'}</h1><p>{t.intro}</p></section><section className="work-section"><div className="section-heading"><h2>Selected work</h2><span>{projects.filter(p=>p.track===track).length} chapters</span></div><div className="project-grid">{projects.filter(p=>p.track===track).map(p=><ProjectCard key={p.slug} project={p}/>)}</div><p className="art-note">Illustrative project artwork. Original screenshots and artifacts forthcoming.</p></section></>; }
+function Track({track}) {
+  const normalizedTrack = normalizeTrack(track);
+  const t = tracks[normalizedTrack];
+  const filteredProjects = projects.filter(p => normalizeTrack(p.track) === normalizedTrack);
+  return <><section className="track-hero"><a className="text-link" href={href()}>The collected works</a><p className="eyebrow">Vol. {t.volume} / {normalizedTrack==='engineer'?'Engineering':'Product management'}</p><h1>{normalizedTrack==='engineer'?'Engineering':'Product'}</h1><p>{t.intro}</p></section><section className="work-section"><div className="section-heading"><h2>Selected work</h2><span>{filteredProjects.length} chapters</span></div><div className="project-grid">{filteredProjects.map(p=><ProjectCard key={p.slug} project={p}/>)}</div><p className="art-note">Illustrative project artwork. Original screenshots and artifacts forthcoming.</p></section></>;
+}
 function CaseStudy({project:p}) {
   const [activeSection, setActiveSection] = useState('problem');
   useEffect(() => {
@@ -70,6 +76,7 @@ export default function App() {
   const [address, setAddress] = useState(() => location.hash.slice(2) || '');
   const [path, query = ''] = address.split('?');
   const route = path.replace(/\/$/, '');
+  const normalizedRoute = normalizeTrack(route);
   const section = route === 'about' ? 'about' : new URLSearchParams(query).get('section');
   const main = useRef(null);
   useEffect(() => {
@@ -87,10 +94,10 @@ export default function App() {
   const project = projects.find(p => route === `work/${p.slug}`);
   const isHome = route === '' || route === 'about';
   useEffect(() => {
-    document.title = `${project ? project.title : tracks[route]?.name || ({ contact: 'Contact', resume: 'Resume' }[route]) || 'Systems engineer. AI builder.'} | Diti Chhaproo`;
-  }, [route, project]);
-  const page = isHome ? <Home/> : tracks[route] ? <Track track={route}/> : project ? <CaseStudy project={project}/> : route === 'contact' ? <Contact/> : route === 'resume' ? <Resume/> : <section className="simple-page"><h1>Page not found.</h1><a href={href()}>Return to the portfolio</a></section>;
-  return <div className={`site ${isHome ? 'home-site' : 'inner-site'} ${route === 'builder' || project?.track === 'builder' ? 'builder-theme' : ''}`}>
+    document.title = `${project ? project.title : tracks[normalizedRoute]?.name || ({ contact: 'Contact', resume: 'Resume' }[route]) || 'Systems engineer. AI builder.'} | Diti Chhaproo`;
+  }, [route, normalizedRoute, project]);
+  const page = isHome ? <Home/> : tracks[normalizedRoute] ? <Track track={normalizedRoute}/> : project ? <CaseStudy project={project}/> : route === 'contact' ? <Contact/> : route === 'resume' ? <Resume/> : <section className="simple-page"><h1>Page not found.</h1><a href={href()}>Return to the portfolio</a></section>;
+  return <div className={`site ${isHome ? 'home-site' : 'inner-site'} ${normalizedRoute === 'builder' || normalizeTrack(project?.track) === 'builder' ? 'builder-theme' : ''}`}>
     <a className="skip-link" href="#main" onClick={e => { e.preventDefault(); main.current?.focus(); }}>Skip to content</a>
     <Nav route={route} section={section}/>
     <main id="main" tabIndex="-1" ref={main}><div key={isHome ? 'home' : route} className="page-leaf">{page}</div></main>

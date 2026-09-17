@@ -6,76 +6,333 @@ export const socials = {
 
 export const tracks = {
   engineer: { volume: 'I', name: 'The Engineer', subtitle: 'A study in systems.', intro: 'Systems, hardware, manufacturing, and the craft of making complex things dependable.' },
-  builder: { volume: 'II', name: 'The Product Manager', subtitle: 'An instinct to make.', intro: 'Products, AI, research, and the work of turning ambiguous needs into useful outcomes.' }
+  builder: { volume: 'II', name: 'The Product Manager', subtitle: 'An instinct to make.', intro: 'Products, AI, research, and the work of turning ambiguous needs into useful outcomes.' },
+  product: { volume: 'II', name: 'The Product Manager', subtitle: 'An instinct to make.', intro: 'Products, AI, research, and the work of turning ambiguous needs into useful outcomes.' }
 };
-
-const takeaways = ['Clear constraints make stronger decisions possible.','Evidence should shape the next iteration.','The strongest systems make complexity understandable.'];
 
 export const projects = [
   {
-    slug:'manuloop', track:'engineer', artwork:'manuloop', title:'ManuLoop', subtitle:'DFM Co-pilot', category:'Manufacturing / AI', tools:'B-rep CAD · ML classification · NADCA 402', role:'Systems and ML engineer', timeline:'Dates forthcoming', context:'Die-cast aluminum EV parts',
-    lead:'A closed-loop manufacturability analysis tool connecting', emphasis:'CAD geometry, feature classification, and engineering constraints.', summary:'A DFM analysis loop grounded in geometry and manufacturing rules.',
-    problem:'Manufacturability constraints need to be evaluated against actual part geometry without producing false violations that weaken trust in the analysis.',
-    approach:[['Classify geometry','Trained an ML model on 59,600 B-rep CAD models across 25 machining feature classes, reaching 99.24% test accuracy.'],['Encode constraints','Translated NADCA Publication 402 guidance into geometric DFM checks.'],['Validate the loop','Resolved a vertex-convergence false violation and tested the workflow against real GrabCAD production parts.']], artifacts:['Geometry classification workflow','DFM constraint results'], takeaways
+    slug: 'manuloop',
+    track: 'engineer',
+    artwork: 'manuloop',
+    title: 'ManuLoop',
+    subtitle: 'Closed-loop DFM analysis for manufactured parts',
+    category: 'Manufacturing / AI',
+    tools: 'Python · SolidWorks · ML · NADCA',
+    role: 'Solo engineer',
+    timeline: 'Apr 2026 to Jul 2026',
+    context: 'Solo capstone project',
+    lead: 'A system that automatically flags manufacturability violations in CAD models,',
+    emphasis: 'closing the loop between design and production before tooling is committed.',
+    summary: 'ML classification pipeline trained on 59,600 CAD models to identify machining features and check die-casting manufacturability constraints automatically.',
+    problem: 'Manufacturability reviews are manual, slow, and often happen too late — after tooling decisions have already been made. The challenge was building a system that could flag violations directly from raw CAD geometry, without human review.',
+    approach: [
+      ['Train the classifier', 'Trained an ML model on 59,600 B-rep CAD models across 25 machining feature classes, achieving 99.24% test accuracy. Extended to handle real-world multi-body STEP assemblies beyond synthetic training data.'],
+      ['Encode the constraints', 'Encoded NADCA Publication 402 manufacturability constraints as geometric DFM checks against the classified geometry. Resolved a false-violation bug at vertex convergences via root cause analysis.'],
+      ['Validate end-to-end', 'Validated the full pipeline against real GrabCAD production parts to confirm generalization beyond training data. Documented findings for engineering handoff.']
+    ],
+    artifacts: ['ML classification model', 'NADCA DFM constraint checks', 'GrabCAD validation results'],
+    takeaways: [
+      'Real-world CAD assemblies don’t look like synthetic training data — extending the pipeline required deliberate effort.',
+      'Root cause analysis on the false-violation bug revealed a geometric edge case at vertex convergences that wouldn’t have been caught by testing alone.',
+      'Manufacturability feedback is most valuable early — the system was designed to integrate at the design stage, not post-tooling.'
+    ]
   },
   {
-    slug:'hdf-engineering', track:'engineer', artwork:'hdf-pipeline', title:'HDF Group', subtitle:'Verification Pipeline', category:'Systems / Data', tools:'HDF5 · Python · V&V · Traceability', role:'Product Systems Engineer intern', timeline:'Spring 2026 to present', context:'HDF Group',
-    lead:'A verification-gated engineering pipeline built for', emphasis:'traceability, performance, and reliable rollout.', summary:'System requirements, validation gates, and performance analysis across HDF5 workflows.',
-    problem:'A complex refactoring effort across 34 HDF5 modules needed measurable acceptance criteria, stronger validation coverage, and repeatable performance tests.',
-    approach:[['Structure delivery','Led eight engineers across three phases and defined requirements, acceptance criteria, and validation gates.'],['Expand validation','Automated checks across 75,000+ records, increasing validation coverage from 68% to 96%.'],['Benchmark the system','Compared six workflow configurations and reduced cycle time by 42% and storage by 31%.']], artifacts:['Requirements and traceability matrix','Performance test dashboard'], takeaways
+    slug: 'esdl-research',
+    track: 'engineer',
+    artwork: 'esdl-research',
+    title: 'Thermal Architecture Generation',
+    subtitle: 'Automating thermal system design for EVs and aircraft',
+    category: 'AI / Systems Engineering',
+    tools: 'Python · PyTorch · GNN · VAE · NetworkX',
+    role: 'Research Assistant',
+    timeline: 'Sep 2025 to Present',
+    context: 'University research, Engineering System Design Lab, Prof. James Allison',
+    lead: 'A GNN+VAE generation pipeline that replaces manual enumeration of thermal management system architectures,',
+    emphasis: 'producing 100% feasible configurations across thousands of candidates automatically.',
+    summary: 'Automated thermal architecture generation for electric vehicles and aircraft using graph neural networks, replacing brute-force enumeration across 21,000+ configurations with a validated generative pipeline.',
+    problem: 'Manual enumeration of thermal management system architectures for EVs and aircraft is infeasible at scale — thousands of candidate configurations, each requiring constraint validation. The challenge was automating generation while guaranteeing feasibility.',
+    approach: [
+      ['Reverse-engineer the constraints', 'Extracted constraint rules from existing validation logic rather than defining them manually, enabling the pipeline to learn what makes a configuration feasible.'],
+      ['Build the generation pipeline', 'Designed a GNN+VAE architecture to generate graph-structured thermal system configurations, producing 100% feasible and connected outputs across 4 tested algorithms for 150+ EV and 21,000+ aircraft candidates.'],
+      ['Validate at scale', 'Built a 500-trial validation harness benchmarking structural diversity across 200 configurations per method. Iterated on algorithm design based on feasibility rate and diversity metrics. Publication in progress.']
+    ],
+    artifacts: ['GNN+VAE generation pipeline', '500-trial validation harness', 'Algorithm benchmarking results'],
+    takeaways: [
+      'Reverse-engineering constraint rules from validation logic was faster and more accurate than defining them from scratch.',
+      'Structural diversity matters as much as feasibility — a pipeline that produces valid but repetitive configurations isn’t useful.',
+      'Publication-quality research requires a validation harness rigorous enough to catch edge cases across hundreds of trials.'
+    ]
   },
   {
-    slug:'furtados', track:'engineer', artwork:'solidworks-tolerance', title:'Furtados School of Music', subtitle:'Embedded MIDI System', category:'Hardware / Embedded', tools:'SolidWorks · Raspberry Pi · USB-MIDI · DIN-5', role:'Embedded Systems Engineering intern', timeline:'April 2025 to August 2025', context:'250,000+ user music product',
-    lead:'Hardware delivery for an embedded MIDI experience balancing', emphasis:'space, latency, cost, and usability.', summary:'An embedded MIDI product designed around tight physical and system constraints.',
-    problem:'The product needed a reliable hardware and software stack inside a 320 × 185 × 48 mm enclosure, under a $14K BOM target and a 60 ms latency constraint.',
-    approach:[['Prototype the enclosure','Designed the enclosure in SolidWorks around the component and interface constraints.'],['Integrate the hardware','Assembled USB-MIDI and DIN-5 signal interfaces on Raspberry Pi.'],['Validate release readiness','Reviewed suppliers, resolved 15+ integration issues, and tested with 130+ pilot users.']], artifacts:['Enclosure and interface design','Pilot validation summary'], takeaways
+    slug: 'awms',
+    track: 'engineer',
+    artwork: 'awms',
+    title: 'Autonomous Waste Management System',
+    subtitle: 'Physical autonomous sorting system for civil engineering',
+    category: 'Systems Engineering / Mechanical',
+    tools: 'Fusion360 · SysML · V&V · Python',
+    role: 'Systems engineer',
+    timeline: 'Sep 2025 to Present',
+    context: 'UIUC Civil & Environmental Engineering',
+    lead: 'A physical autonomous waste sorting system designed, modeled, and validated',
+    emphasis: 'from requirements through fabrication across 4 integrated subsystems.',
+    summary: 'Full-system SysML model and physical conveyor design for an autonomous waste management robot, achieving 23% mass reduction and 18% robustness improvement through trade-off analysis and V&V testing.',
+    problem: 'Autonomous waste management systems require tight integration between mechanical, software, and sensor subsystems — and design decisions in one domain cascade through the others. The challenge was managing that complexity from requirements through fabrication.',
+    approach: [
+      ['Model the system', 'Modeled the full system in SysML across 4 subsystems as the sole systems engineer, defining requirements, interface specifications, and V&V planning before any physical work began.'],
+      ['Design the conveyor', 'Designed the conveyor subsystem in Fusion360, sizing belt geometry, cleat spacing, and drive enclosures against throughput and clearance requirements. Validated via motion simulation before fabrication.'],
+      ['Test and optimize', 'Executed 9 V&V procedures across mechanical, software, and sensor integration layers. Applied material trade-off analysis to achieve 23% mass reduction and 18% robustness improvement.']
+    ],
+    artifacts: ['SysML system model', 'Fusion360 conveyor design', 'V&V test results'],
+    takeaways: [
+      'Modeling first — SysML upfront caught interface mismatches before fabrication made them expensive.',
+      'Simulation before fabrication saved multiple physical iterations on the conveyor design.',
+      'Trade-off analysis on materials had a bigger impact on mass and robustness than any single design change.'
+    ]
   },
   {
-    slug:'cms-inspection', track:'engineer', artwork:'gnn-thermal', title:'CMS Info Systems', subtitle:'Edge Inspection System', category:'Computer Vision / Systems', tools:'YOLOv5 · Jetson Nano · FMEA', role:'Systems Engineering intern', timeline:'June 2024 to August 2024', context:'70,000 endpoint deployment',
-    lead:'Deployment readiness for an automated inspection system across', emphasis:'variable field conditions and edge hardware.', summary:'Detection thresholds, failure analysis, and deployment evidence at field scale.',
-    problem:'A national-scale edge inspection system needed a defensible balance between detection accuracy, false positives, and real-time performance.',
-    approach:[['Define failure modes','Applied FMEA to identify operational risks across variable conditions.'],['Calibrate the threshold','Reached 98% accuracy at a 3.8% false positive rate.'],['Verify edge performance','Confirmed 34 ms per frame performance on Jetson Nano and documented deployment readiness.']], artifacts:['FMEA and acceptance criteria','Edge benchmark results'], takeaways
+    slug: 'hdf-group-eng',
+    track: 'engineer',
+    artwork: 'hdf-group',
+    title: 'HDF Group — Validation Pipeline',
+    subtitle: 'Manufacturing data traceability and process validation at scale',
+    category: 'Systems Engineering / Data',
+    tools: 'Python · HDF5 · SQL · Dashboards',
+    role: 'Product Engineer Intern',
+    timeline: 'Mar 2026 to Aug 2026',
+    context: 'HDF Group, serving NASA and Boeing',
+    lead: 'A verification-gated data pipeline built to catch process variation and defects across 180K+ manufacturing records,',
+    emphasis: 'replacing manual review with automated traceability across 34 modules.',
+    summary: 'Led an 8-engineer team to analyze 2.4 TB of manufacturing data, build automated validation checks, and benchmark 6 workflow configurations — reducing cycle time by 42% and saving 120 engineering hours per rollout.',
+    problem: 'Manufacturing and inspection records for NASA and Boeing were growing faster than manual review could handle. Process variation and recurring defect patterns were going undetected until late in the workflow, increasing rework cost and rollout risk.',
+    approach: [
+      ['Analyze the data', 'Analyzed 180K+ manufacturing and inspection records across 2.4 TB of HDF5 data to identify process variation and recurring defect patterns, supporting root-cause investigations across production workflows.'],
+      ['Automate validation', 'Developed automated traceability and process-validation checks across 75K+ records, increasing validation coverage from 68% to 96% and reducing manual review effort significantly.'],
+      ['Benchmark and document', 'Benchmarked 6 manufacturing-data workflow configurations against throughput, latency, storage utilization, and failure rate. Reduced engineering analysis cycle time by 42% and storage requirements by 31%. Created SOPs, KPI dashboards, and validation templates standardizing delivery across 3 rollout phases.']
+    ],
+    artifacts: ['Automated validation pipeline', 'KPI dashboards', 'Workflow benchmark results', 'SOPs and validation templates'],
+    takeaways: [
+      'At 2.4 TB scale, automation isn’t a nice-to-have — manual review was already failing before the project started.',
+      'Benchmarking 6 configurations against multiple metrics revealed non-obvious tradeoffs between throughput and storage.',
+      'Standardizing delivery via SOPs and templates compounded the time savings across every subsequent rollout.'
+    ]
   },
   {
-    slug:'waste-management', track:'engineer', artwork:'bev-mbse', title:'Waste Management System', subtitle:'Conveyor and Systems Integration', category:'Mechanical / Systems', tools:'Fusion 360 · SysML · V&V', role:'Systems engineer', timeline:'September 2025 to present', context:'Autonomous waste management',
-    lead:'A conveyor subsystem and system model connecting', emphasis:'mechanical design, software, sensing, and verification.', summary:'Subsystem design and verification across mechanical, software, and sensor layers.',
-    problem:'Four interacting subsystems needed a shared model, measurable requirements, and a verification plan before fabrication and integration.',
-    approach:[['Design the conveyor','Sized belt geometry, cleat spacing, and drive enclosures against throughput and clearance needs.'],['Model the system','Mapped four subsystems in SysML and planned cross-layer verification.'],['Verify and improve','Executed nine V&V procedures and achieved 23% mass reduction with 18% robustness improvement.']], artifacts:['SysML system model','Motion simulation and V&V plan'], takeaways
+    slug: 'hdf-group-pm',
+    track: 'product',
+    artwork: 'hdf-group',
+    title: 'HDF Group — Pipeline PM',
+    subtitle: 'Driving adoption for a NASA and Boeing validation pipeline',
+    category: 'Product Management / Data',
+    tools: 'Python · Dashboards · SOPs · KPI tracking',
+    role: 'Product Engineer Intern',
+    timeline: 'Mar 2026 to Aug 2026',
+    context: 'HDF Group, serving NASA and Boeing',
+    lead: 'Identified the adoption blockers in a pipeline serving NASA and Boeing, translated stakeholder needs into requirements,',
+    emphasis: 'and drove the changes that moved accuracy from 26% to 95%.',
+    summary: 'Led 8 engineers across 3 rollout phases, diagnosed low retrieval accuracy as the primary adoption blocker, and defined release KPIs and validation templates that saved 120+ engineering hours per rollout.',
+    problem: 'A pipeline serving NASA and Boeing had low adoption because retrieval accuracy was too unreliable for production use. Stakeholders didn’t have clear requirements, validation was inconsistent, and there was no structured way to track delivery across phases.',
+    approach: [
+      ['Identify the blockers', 'Ran stakeholder interviews to identify reliability and review-speed as the core adoption blockers. Translated those needs into requirements and acceptance criteria across 8 engineers, 34 modules, and 3 rollout phases.'],
+      ['Drive the fix', 'Diagnosed low retrieval accuracy as the primary blocker and coordinated validation changes across the engineering team. Improved accuracy from 26% to 95% measured against a 44-PR evaluation corpus.'],
+      ['Standardize delivery', 'Defined release KPIs, built dashboards and SOPs, and created validation templates that standardized delivery across all 3 phases and saved 120+ engineering hours per rollout.']
+    ],
+    artifacts: ['Requirements and acceptance criteria', 'KPI dashboards', 'SOPs and validation templates'],
+    takeaways: [
+      'Low adoption was a product problem masquerading as a technical one — the accuracy issue was known but unacted on until it was framed as a blocker.',
+      'Measuring accuracy against a fixed evaluation corpus gave the team an objective target, not just a feel.',
+      'Standardized delivery templates created compounding returns — each rollout cost less than the one before.'
+    ]
   },
   {
-    slug:'ibc-engineering', track:'engineer', artwork:'hdf-pipeline', title:'Illinois Business Consulting', subtitle:'Manufacturing Systems Analysis', category:'Analytics / Systems', tools:'Power BI · Facilities planning · Constraint analysis', role:'Project manager', timeline:'September 2024 to present', context:'Global manufacturing client',
-    lead:'Technical analysis used to evaluate', emphasis:'facilities, workforce, cost, and location tradeoffs.', summary:'A systems view of office location and manufacturing constraints.',
-    problem:'A global manufacturing conglomerate needed to evaluate a new office location against facilities, manpower, and a $400K budget.',
-    approach:[['Map the opportunity','Built cluster maps to compare candidate regions and operating contexts.'],['Model the constraints','Combined facilities, cost, and workforce variables in Power BI.'],['Support the decision','Synthesized tradeoffs for the location recommendation and supported a separate M&A engagement.']], artifacts:['Location cluster map','Cost and manpower model'], takeaways
+    slug: 'furtados-eng',
+    track: 'engineer',
+    artwork: 'furtados',
+    title: 'Furtados — Embedded MIDI Hardware',
+    subtitle: 'Design-to-production integration for a 250K+ user music product',
+    category: 'Systems Engineering / Hardware',
+    tools: 'SolidWorks · Raspberry Pi · USB-MIDI · DIN-5',
+    role: 'Embedded Systems Engineering Intern',
+    timeline: 'Apr 2025 to Aug 2025',
+    context: 'Furtados School of Music',
+    lead: 'Led design-to-production integration as the sole systems engineer on an embedded MIDI product,',
+    emphasis: 'shipping to 250K+ users within a $14K BOM target and 60ms latency constraint.',
+    summary: 'Prototyped SolidWorks enclosure, assembled USB-MIDI and DIN-5 interfaces on Raspberry Pi, coordinated 5+ suppliers, resolved 15+ integration issues, and validated with 130+ pilot users.',
+    problem: 'An embedded MIDI product serving 250K+ users needed to be designed, sourced, and validated across electrical and mechanical constraints — within a $14K BOM target and 60ms end-to-end latency. No single engineer had owned the full hardware stack before.',
+    approach: [
+      ['Design the enclosure', 'Prototyped a space-constrained enclosure in SolidWorks within a 320×185×48 mm footprint. Sized for fit, assembly, and manufacturability across all internal components.'],
+      ['Build the hardware', 'Soldered and assembled USB-MIDI and DIN-5 signal interfaces on Raspberry Pi. Coordinated with electrical and mechanical PMs to ensure subsystem compatibility within the latency constraint.'],
+      ['Validate and ship', 'Conducted supplier drawing reviews and bid analysis across 5+ vendors, resolving 15+ launch-critical integration issues. Validated hardware-software integration with 130+ pilot users, improving feedback accuracy by 35%.']
+    ],
+    artifacts: ['SolidWorks enclosure prototype', 'Hardware assembly', 'Supplier qualification results', 'User validation report'],
+    takeaways: [
+      'Manufacturability constraints on the enclosure revealed fit issues that wouldn’t have surfaced until final assembly.',
+      'Supplier drawing reviews caught 15+ integration issues before release — most of which would have been expensive post-production.',
+      '130+ pilot users gave signal that the hardware feedback loop was working correctly before full deployment.'
+    ]
   },
   {
-    slug:'revamp', track:'builder', artwork:'revamp', title:'Revamp', subtitle:'Agentic AI Consulting Lab', category:'Product / Founding', tools:'PRD · RICE · Roadmaps · KPI dashboards', role:'Founder and lead', timeline:'Active', context:'Student AI consulting lab at UIUC',
-    lead:'An agentic AI consulting and analytics lab built', emphasis:'from zero to 45 members and six client engagements.', summary:'A repeatable product delivery system built from the first discovery call.',
-    problem:'Client needs arrived ambiguous, while multiple student teams needed a consistent way to scope, prioritize, and evaluate useful products.',
-    approach:[['Discover the need','Ran 30+ stakeholder calls and converted ambiguous goals into MVP requirements.'],['Run delivery','Coordinated four workstreams through PRDs, sprint priorities, and roadmaps.'],['Use the evidence','Tracked adoption and delivery KPIs, reducing average delivery cycle time by 33%.']], artifacts:['Product roadmap and backlog','Engagement KPI dashboard'], takeaways
+    slug: 'furtados-pm',
+    track: 'product',
+    artwork: 'furtados',
+    title: 'Furtados — MIDI Product PM',
+    subtitle: 'Full product development cycle for a 250K+ user music experience',
+    category: 'Product Management / Hardware',
+    tools: 'User research · User stories · Supplier coordination · Acceptance criteria',
+    role: 'Product Management Intern',
+    timeline: 'Apr 2025 to Aug 2025',
+    context: 'Furtados School of Music',
+    lead: 'Led the full product development cycle from discovery through launch for an embedded MIDI experience serving 250K+ users,',
+    emphasis: 'balancing usability, latency, hardware constraints, and a $14K BOM target across 3 cross-functional teams.',
+    summary: 'Ran discovery with 130+ users, translated findings into 20+ user stories, and partnered with engineering, QA, and 5+ suppliers to close 15+ launch-critical issues before shipping.',
+    problem: 'A 250K+ user product needed to ship on a fixed BOM target and latency constraint, with no prior PM ownership of the full hardware-to-software stack. User feedback loops were slow and integration issues were surfacing late.',
+    approach: [
+      ['Discover the problems', 'Conducted discovery and pilot testing with 130+ users to identify the highest-friction integration and usability issues. Translated findings into 20+ prioritized user stories and design changes.'],
+      ['Drive the roadmap', 'Balanced usability, latency, hardware constraints, and a $14K BOM target across 3 cross-functional teams. Made explicit tradeoff decisions on each constraint as the sole PM.'],
+      ['Close to launch', 'Partnered with engineering, QA, and 5+ suppliers to close 15+ launch-critical integration issues. Defined acceptance criteria and validated release readiness before deployment. Improved feedback accuracy by 35%.']
+    ],
+    artifacts: ['User research synthesis', 'Prioritized user stories', 'Launch acceptance criteria', 'Release validation report'],
+    takeaways: [
+      '130+ pilot users caught feedback loop failures that would have shipped otherwise.',
+      'Making BOM and latency tradeoffs explicit up front prevented scope creep mid-cycle.',
+      'Supplier coordination at the PM level — not just engineering — closed issues 2x faster.'
+    ]
   },
   {
-    slug:'hdf-product', track:'builder', artwork:'hdf-pipeline', title:'HDF Group', subtitle:'AI Refactoring Pipeline', category:'Product / AI', tools:'PRDs · Evaluation corpus · Release KPIs', role:'Product Systems Engineer intern', timeline:'Spring 2026 to present', context:'HDF Group through Revamp',
-    lead:'A product and evaluation system for an AI-assisted pipeline serving', emphasis:'NASA, Boeing, and the HDF5 ecosystem.', summary:'Evaluation, release readiness, and review speed for an AI refactoring workflow.',
-    problem:'Reliability and review-speed bottlenecks limited adoption, with low retrieval accuracy emerging as the primary blocker.',
-    approach:[['Align the team','Translated stakeholder needs into requirements across eight engineers, 34 modules, and three phases.'],['Fix the blocker','Improved retrieval accuracy from 26% to 95% against a 44-PR evaluation corpus.'],['Standardize launch','Defined KPIs, dashboards, SOPs, and templates that saved 120+ engineering hours per rollout.']], artifacts:['Evaluation dashboard','Release readiness playbook'], takeaways
+    slug: 'cms-eng',
+    track: 'engineer',
+    artwork: 'cms',
+    title: 'CMS Info Systems — Inspection System',
+    subtitle: 'Field-scale deployment validation across 70K endpoints',
+    category: 'Systems Engineering',
+    tools: 'Python · FMEA · Edge hardware · Data analysis',
+    role: 'Systems Engineering Intern',
+    timeline: 'Jun 2024 to Aug 2024',
+    context: 'CMS Info Systems',
+    lead: 'Validated field-scale deployment of an automated inspection system across 70K endpoints,',
+    emphasis: 'achieving 98% accuracy at 3.8% FPR on edge hardware.',
+    summary: 'Applied FMEA to define failure modes, calibrated detection threshold logic through structured data analysis, and produced documentation confirming deployment readiness across variable operating conditions.',
+    problem: 'An automated inspection system needed to be deployed across 70K endpoints with variable operating conditions. The challenge was confirming readiness without being able to test every environment — and defining what “good enough” accuracy actually meant.',
+    approach: [
+      ['Define failure modes', 'Applied FMEA to systematically identify failure modes across the deployment environment and confirm readiness criteria before calibration began.'],
+      ['Calibrate the threshold', 'Ran structured data analysis to calibrate detection threshold logic, balancing accuracy against false positive rate. Selected a threshold achieving 98% accuracy at 3.8% FPR on Jetson Nano edge hardware.'],
+      ['Document and ship', 'Produced deployment documentation confirming distributed readiness across variable field conditions. Findings supported the production rollout decision.']
+    ],
+    artifacts: ['FMEA failure mode analysis', 'Threshold calibration results', 'Deployment readiness documentation'],
+    takeaways: [
+      'FMEA before calibration ensured the right failure modes were being measured, not just the convenient ones.',
+      'The accuracy/FPR tradeoff required an explicit decision — there was no threshold that optimized both.',
+      'Deployment documentation at scale requires structure, not just results — the format mattered as much as the findings.'
+    ]
   },
   {
-    slug:'whai', track:'builder', artwork:'revamp', title:'WHAI', subtitle:'LLM Orchestrator for Small Businesses', category:'Product / AI', tools:'PRD · User research · Shopify API', role:'Product strategy', timeline:'Dates forthcoming', context:'Chicago small businesses',
-    lead:'Product strategy for a production LLM orchestrator grounded in', emphasis:'small-business workflow research.', summary:'Discovery, MVP definition, and adoption tracking for a small-business AI product.',
-    problem:'Small businesses needed an AI workflow tool that addressed real operating failures instead of adding another disconnected interface.',
-    approach:[['Research the workflow','Ran surveys with Chicago small businesses to identify critical workflow failures.'],['Define the product','Set the target problem, MVP scope, PRD, user stories, and sprint goals.'],['Prioritize and learn','Prioritized a Shopify API redesign and tracked adoption after launch.']], artifacts:['MVP product requirements','Workflow research synthesis'], takeaways
+    slug: 'cms-pm',
+    track: 'product',
+    artwork: 'cms',
+    title: 'CMS Info Systems — Deployment PM',
+    subtitle: 'Defining launch criteria for a 70K-endpoint rollout',
+    category: 'Product Management',
+    tools: 'Data analysis · Acceptance criteria · FMEA',
+    role: 'Product Development Intern',
+    timeline: 'Jun 2024 to Aug 2024',
+    context: 'CMS Info Systems',
+    lead: 'Defined launch acceptance criteria for a 70K-endpoint deployment,',
+    emphasis: 'balancing detection performance against user friction to select the right threshold.',
+    summary: 'Scoped acceptance criteria, made the accuracy vs. false-positive-rate tradeoff decision, and produced documentation supporting the production rollout decision.',
+    problem: 'A 70K-endpoint automated inspection system needed clear launch criteria — but “good enough” accuracy wasn’t defined. The risk of setting it too high was delayed deployment; too low was user friction from false positives.',
+    approach: [
+      ['Define the tradeoff', 'Scoped launch acceptance criteria by mapping the accuracy vs. false-positive-rate tradeoff against actual user impact. Made the explicit decision to prioritize accuracy at 98% with a 3.8% FPR.'],
+      ['Validate the decision', 'Ran structured data analysis to confirm the threshold held across variable operating conditions on edge hardware. Produced documentation supporting the rollout decision.'],
+      ['Ship with confidence', 'Supported the production rollout decision with evidence-backed documentation confirming readiness across the full 70K-endpoint deployment.']
+    ],
+    artifacts: ['Launch acceptance criteria', 'Threshold analysis', 'Rollout readiness documentation'],
+    takeaways: [
+      'Acceptance criteria without a defined tradeoff framework aren’t criteria — they’re just aspirations.',
+      'The user friction cost of a false positive was higher than the accuracy cost of a true negative.',
+      'Evidence-backed documentation was what made the rollout decision feel safe, not just the number.'
+    ]
   },
   {
-    slug:'ibc-product', track:'builder', artwork:'manuloop', title:'Illinois Business Consulting', subtitle:'GTM and Partnership Strategy', category:'Product / Strategy', tools:'ICP · Positioning · Pricing · Sales playbook', role:'Project manager', timeline:'September 2024 to present', context:'KPMG and FraterIT engagements',
-    lead:'Strategy work connecting', emphasis:'customer definition, positioning, partnerships, and routes to market.', summary:'A GTM system and partnership framework delivered to client leadership.',
-    problem:'Clients needed actionable partnership and growth systems, from university recruiting channels to a founder-ready go-to-market plan.',
-    approach:[['Design partnerships','Created university frameworks spanning recruiting, case competitions, and research collaboration for KPMG.'],['Build the GTM system','Led a ten-person team across ICP, positioning, pricing, sales, and channels for FraterIT.'],['Deliver to leadership','Turned the analysis into a decision-ready playbook presented directly to the founder.']], artifacts:['University partnership framework','GTM strategy and sales playbook'], takeaways
+    slug: 'revamp',
+    track: 'product',
+    artwork: 'revamp',
+    title: 'Revamp',
+    subtitle: 'Agentic AI consulting lab at UIUC',
+    category: 'Product Leadership / AI',
+    tools: 'Agile · KPI tracking · Discovery · Roadmap',
+    role: 'Founder & Director',
+    timeline: 'Aug 2025 to Present',
+    context: 'UIUC student organization',
+    lead: 'Built a 45-member agentic AI consulting lab from scratch,',
+    emphasis: 'delivering across 6 client engagements with 4 concurrent workstreams and a 33% reduction in delivery cycle time.',
+    summary: 'Grew Revamp from 0 to 45 members, ran 30+ discovery calls, tracked delivery KPIs across 6 engagements, and built the operating infrastructure to make delivery repeatable.',
+    problem: 'Student consulting organizations typically lack the infrastructure to deliver consistently — each engagement is ad hoc, handoffs fail, and client quality varies wildly. The challenge was building something that could scale without becoming bureaucratic.',
+    approach: [
+      ['Build the operating model', 'Designed sprint cycles, project intake, and client delivery infrastructure to standardize execution. Applied RICE prioritization to sequence roadmap decisions across all active engagements.'],
+      ['Run discovery at scale', 'Ran 30+ discovery and stakeholder calls, converting ambiguous client needs into MVP requirements and sprint priorities. Kept scope tight enough to ship.'],
+      ['Measure and iterate', 'Tracked adoption and delivery KPIs across 6 engagements. Used post-launch data to reprioritize features and reduce average delivery cycle time by 33%.']
+    ],
+    artifacts: ['Operating model', 'Client delivery infrastructure', 'KPI tracking system'],
+    takeaways: [
+      'The operating model was the product — without it, quality would have degraded as we scaled.',
+      '30+ discovery calls taught me that ambiguous client problems aren’t unique — most compress into a small set of failure modes.',
+      'A 33% cycle time reduction came from reducing handoff friction, not from working faster.'
+    ]
   },
   {
-    slug:'ai-nexus-healthcare', track:'builder', artwork:'gnn-thermal', title:'AI Nexus Healthcare', subtitle:'Healthcare AI Product', category:'Product / Healthcare', tools:'Product discovery · AI workflows', role:'Product work', timeline:'Details forthcoming', context:'Healthcare',
-    lead:'A healthcare AI product case study focused on', emphasis:'turning a high-stakes workflow into a clear product system.', summary:'Healthcare product discovery and AI workflow design. Full case study coming soon.',
-    problem:'Healthcare AI requires a clear user problem, careful workflow design, and measurable evidence before it can earn trust.',
-    approach:[['Frame the workflow','Document the user, context, and decision that the product must support.'],['Define the product','Translate the opportunity into requirements and an evaluable workflow.'],['Prepare the evidence','Add the original project artifacts and measured outcomes as the work is cleared for publication.']], artifacts:['Healthcare workflow map','Product evaluation plan'], takeaways
+    slug: 'whai-tech',
+    track: 'product',
+    artwork: 'whai-tech',
+    title: 'Whai Tech',
+    subtitle: 'LLM orchestrator agent for small businesses',
+    category: 'Product Management / AI',
+    tools: 'PRDs · User research · Agile · Shopify API',
+    role: 'Product Manager',
+    timeline: 'Feb 2025 to May 2025',
+    context: 'Whai Tech startup',
+    lead: 'Defined the product strategy and drove the full PM cycle for a production LLM orchestrator agent,',
+    emphasis: 'taking activation from 52% to 74% and 4-week retention from 34% to 52%.',
+    summary: 'Ran 50+ customer interviews with Chicago SMBs, prioritized a Shopify API redesign based on findings, and tracked post-launch metrics that confirmed the changes worked.',
+    problem: 'The product was live but SMB users were dropping off before completing their first workflow. Activation was at 52%, time-to-first-value was 12 minutes, and nobody had done structured user research to understand why.',
+    approach: [
+      ['Find the problem', 'Ran 50+ customer interviews with Chicago SMBs to identify where workflows were failing. Surfaced that the Shopify API integration was the highest-friction point in the critical path.'],
+      ['Prioritize and ship', 'Defined MVP scope for the integration redesign, wrote user stories and PRD, and ran sprint planning with engineering. Tracked the redesign through to production.'],
+      ['Measure the outcome', 'Ran quantitative analysis on feature performance across 150+ beta users. Activation went from 52% to 74%, time-to-first-value dropped from 12 min to 4 min, agent task success improved from 72% to 93%, and 4-week retention went from 34% to 52%.']
+    ],
+    artifacts: ['User research synthesis', 'PRD and user stories', 'Post-launch metrics dashboard'],
+    takeaways: [
+      '50 interviews were enough to identify the highest-leverage problem — more would have been diminishing returns.',
+      'Time-to-first-value was the leading indicator that predicted retention — fixing it moved both.',
+      'Quantitative validation post-launch is what separated this from a guess.'
+    ]
+  },
+  {
+    slug: 'ibc',
+    track: 'product',
+    artwork: 'ibc',
+    title: 'Illinois Business Consulting',
+    subtitle: 'KPMG, Marmon Group, and FraterIT engagements',
+    category: 'Project Management / Strategy',
+    tools: 'Power BI · GTM frameworks · Market research · Stakeholder management',
+    role: 'Project Manager',
+    timeline: 'Sep 2024 to May 2025',
+    context: 'Illinois Business Consulting, UIUC',
+    lead: 'Led three distinct client engagements — KPMG talent pipeline design, Marmon Group office location analysis, and FraterIT full GTM strategy —',
+    emphasis: 'each requiring different analytical frameworks and stakeholder management approaches.',
+    summary: 'Designed university partnership frameworks for KPMG, built Power BI cluster maps and facilities models for a $400K Marmon office location decision, and led a 10-person team to deliver a full GTM strategy for FraterIT.',
+    problem: 'Three structurally different problems: KPMG needed a repeatable framework for university partnerships; Marmon needed data-driven office location analysis under a $400K budget constraint; FraterIT needed a GTM strategy from scratch with no prior market research.',
+    approach: [
+      ['KPMG', 'Designed university partnership frameworks architecting recruiting pipelines, case competition sponsorship models, and research collaboration structures to formalize their academic talent pipeline.'],
+      ['Marmon Group', 'Led technical analysis for new office location — built cluster maps, facilities planning models, and cost/manpower constraint analyses in Power BI against a $400K budget.'],
+      ['FraterIT', 'Led a 10-person team through ICP definition, competitive positioning, pricing strategy, sales playbook, and channel strategy. Delivered a prioritized market-entry strategy directly to the founder.']
+    ],
+    artifacts: ['KPMG partnership framework', 'Marmon Power BI cluster maps', 'FraterIT GTM strategy and playbook'],
+    takeaways: [
+      'Framework design for KPMG required understanding what they actually valued in university partnerships, not just what they asked for.',
+      'The Marmon location decision depended more on manpower constraints than cost — the Power BI model made that visible.',
+      'A 10-person team on an ambiguous problem needs a structure for disagreement, not just for execution.'
+    ]
   }
 ];
