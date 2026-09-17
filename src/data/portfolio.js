@@ -15,8 +15,8 @@ export const projects = [
   {
     slug: 'manuloop',
     track: 'engineer',
-    artwork: 'manuloop',
-    visuals: ['manuloop-dashboard', 'manuloop-workflow', 'manuloop-sysml-1', 'manuloop-sysml-2', 'manuloop-sysml-3'],
+    artwork: 'manuloop-dashboard.png',
+    visuals: ['manuloop-dashboard.png', 'manuloop-workflow.png', 'manuloop-block-definition.png', 'manuloop-context.png', 'manuloop-requirements.png'],
     title: 'ManuLoop',
     subtitle: 'Closed-loop DFM analysis for manufactured parts',
     category: 'Manufacturing / AI',
@@ -27,17 +27,17 @@ export const projects = [
     lead: 'A system that automatically flags manufacturability violations in CAD models,',
     emphasis: 'closing the loop between design and production before tooling is committed.',
     summary: 'ML classification pipeline trained on 59,600 CAD models to identify machining features and check die-casting manufacturability constraints automatically.',
-    problem: 'Manufacturability reviews are manual, slow, and often happen too late — after tooling decisions have already been made. The challenge was building a system that could flag violations directly from raw CAD geometry, without human review.',
+    problem: 'Manufacturability reviews are manual, slow, and often happen too late: after tooling decisions have already been made. The challenge was building a system that could flag violations directly from raw CAD geometry, without human review.',
     approach: [
       ['Train the classifier', 'Trained an ML model on 59,600 B-rep CAD models across 25 machining feature classes, achieving 99.24% test accuracy. Extended to handle real-world multi-body STEP assemblies beyond synthetic training data.'],
       ['Encode the constraints', 'Encoded NADCA Publication 402 manufacturability constraints as geometric DFM checks against the classified geometry. Resolved a false-violation bug at vertex convergences via root cause analysis.'],
       ['Validate end-to-end', 'Validated the full pipeline against real GrabCAD production parts to confirm generalization beyond training data. Documented findings for engineering handoff.']
     ],
-    artifacts: ['System workflow overview', 'SysML architecture view', 'Context and interaction model', 'Requirements verification traceability'],
+    artifacts: ['Pre-build activity diagram', 'Pre-build block definition diagram', 'Pre-build context diagram', 'Pre-build requirements diagram'],
     takeaways: [
-      'Real-world CAD assemblies don’t look like synthetic training data — extending the pipeline required deliberate effort.',
+      'Real-world CAD assemblies don’t look like synthetic training data: extending the pipeline required deliberate effort.',
       'Root cause analysis on the false-violation bug revealed a geometric edge case at vertex convergences that wouldn’t have been caught by testing alone.',
-      'Manufacturability feedback is most valuable early — the system was designed to integrate at the design stage, not post-tooling.'
+      'Manufacturability feedback is most valuable early: the system was designed to integrate at the design stage, not post-tooling.'
     ]
   },
   {
@@ -54,7 +54,7 @@ export const projects = [
     lead: 'A GNN+VAE generation pipeline that replaces manual enumeration of thermal management system architectures,',
     emphasis: 'producing 100% feasible configurations across thousands of candidates automatically.',
     summary: 'Automated thermal architecture generation for electric vehicles and aircraft using graph neural networks, replacing brute-force enumeration across 21,000+ configurations with a validated generative pipeline.',
-    problem: 'Manual enumeration of thermal management system architectures for EVs and aircraft is infeasible at scale — thousands of candidate configurations, each requiring constraint validation. The challenge was automating generation while guaranteeing feasibility.',
+    problem: 'Manual enumeration of thermal management system architectures for EVs and aircraft is infeasible at scale: thousands of candidate configurations, each requiring constraint validation. The challenge was automating generation while guaranteeing feasibility.',
     approach: [
       ['Reverse-engineer the constraints', 'Extracted constraint rules from existing validation logic rather than defining them manually, enabling the pipeline to learn what makes a configuration feasible.'],
       ['Build the generation pipeline', 'Designed a GNN+VAE architecture to generate graph-structured thermal system configurations, producing 100% feasible and connected outputs across 4 tested algorithms for 150+ EV and 21,000+ aircraft candidates.'],
@@ -63,7 +63,7 @@ export const projects = [
     artifacts: ['GNN+VAE generation pipeline', '500-trial validation harness', 'Algorithm benchmarking results'],
     takeaways: [
       'Reverse-engineering constraint rules from validation logic was faster and more accurate than defining them from scratch.',
-      'Structural diversity matters as much as feasibility — a pipeline that produces valid but repetitive configurations isn’t useful.',
+      'Structural diversity matters as much as feasibility: a pipeline that produces valid but repetitive configurations isn’t useful.',
       'Publication-quality research requires a validation harness rigorous enough to catch edge cases across hundreds of trials.'
     ]
   },
@@ -81,7 +81,7 @@ export const projects = [
     lead: 'A physical autonomous waste sorting system designed, modeled, and validated',
     emphasis: 'from requirements through fabrication across 4 integrated subsystems.',
     summary: 'Full-system SysML model and physical conveyor design for an autonomous waste management robot, achieving 23% mass reduction and 18% robustness improvement through trade-off analysis and V&V testing.',
-    problem: 'Autonomous waste management systems require tight integration between mechanical, software, and sensor subsystems — and design decisions in one domain cascade through the others. The challenge was managing that complexity from requirements through fabrication.',
+    problem: 'Autonomous waste management systems require tight integration between mechanical, software, and sensor subsystems: and design decisions in one domain cascade through the others. The challenge was managing that complexity from requirements through fabrication.',
     approach: [
       ['Model the system', 'Modeled the full system in SysML across 4 subsystems as the sole systems engineer, defining requirements, interface specifications, and V&V planning before any physical work began.'],
       ['Design the conveyor', 'Designed the conveyor subsystem in Fusion360, sizing belt geometry, cleat spacing, and drive enclosures against throughput and clearance requirements. Validated via motion simulation before fabrication.'],
@@ -89,7 +89,7 @@ export const projects = [
     ],
     artifacts: ['SysML system model', 'Fusion360 conveyor design', 'V&V test results'],
     takeaways: [
-      'Modeling first — SysML upfront caught interface mismatches before fabrication made them expensive.',
+      'Modeling first: SysML upfront caught interface mismatches before fabrication made them expensive.',
       'Simulation before fabrication saved multiple physical iterations on the conveyor design.',
       'Trade-off analysis on materials had a bigger impact on mass and robustness than any single design change.'
     ]
@@ -98,7 +98,7 @@ export const projects = [
     slug: 'hdf-group-eng',
     track: 'engineer',
     artwork: 'hdf-group',
-    title: 'HDF Group — Validation Pipeline',
+    title: 'HDF Group: Validation Pipeline',
     subtitle: 'Manufacturing data traceability and process validation at scale',
     category: 'Systems Engineering / Data',
     tools: 'Python · HDF5 · SQL · Dashboards',
@@ -107,7 +107,7 @@ export const projects = [
     context: 'HDF Group, serving NASA and Boeing',
     lead: 'A verification-gated data pipeline built to catch process variation and defects across 180K+ manufacturing records,',
     emphasis: 'replacing manual review with automated traceability across 34 modules.',
-    summary: 'Led an 8-engineer team to analyze 2.4 TB of manufacturing data, build automated validation checks, and benchmark 6 workflow configurations — reducing cycle time by 42% and saving 120 engineering hours per rollout.',
+    summary: 'Led an 8-engineer team to analyze 2.4 TB of manufacturing data, build automated validation checks, and benchmark 6 workflow configurations: reducing cycle time by 42% and saving 120 engineering hours per rollout.',
     problem: 'Manufacturing and inspection records for NASA and Boeing were growing faster than manual review could handle. Process variation and recurring defect patterns were going undetected until late in the workflow, increasing rework cost and rollout risk.',
     approach: [
       ['Analyze the data', 'Analyzed 180K+ manufacturing and inspection records across 2.4 TB of HDF5 data to identify process variation and recurring defect patterns, supporting root-cause investigations across production workflows.'],
@@ -116,7 +116,7 @@ export const projects = [
     ],
     artifacts: ['Automated validation pipeline', 'KPI dashboards', 'Workflow benchmark results', 'SOPs and validation templates'],
     takeaways: [
-      'At 2.4 TB scale, automation isn’t a nice-to-have — manual review was already failing before the project started.',
+      'At 2.4 TB scale, automation isn’t a nice-to-have: manual review was already failing before the project started.',
       'Benchmarking 6 configurations against multiple metrics revealed non-obvious tradeoffs between throughput and storage.',
       'Standardizing delivery via SOPs and templates compounded the time savings across every subsequent rollout.'
     ]
@@ -125,7 +125,7 @@ export const projects = [
     slug: 'hdf-group-pm',
     track: 'product',
     artwork: 'hdf-group',
-    title: 'HDF Group — Pipeline PM',
+    title: 'HDF Group: Pipeline PM',
     subtitle: 'Driving adoption for a NASA and Boeing validation pipeline',
     category: 'Product Management / Data',
     tools: 'Python · Dashboards · SOPs · KPI tracking',
@@ -143,16 +143,16 @@ export const projects = [
     ],
     artifacts: ['Requirements and acceptance criteria', 'KPI dashboards', 'SOPs and validation templates'],
     takeaways: [
-      'Low adoption was a product problem masquerading as a technical one — the accuracy issue was known but unacted on until it was framed as a blocker.',
+      'Low adoption was a product problem masquerading as a technical one: the accuracy issue was known but unacted on until it was framed as a blocker.',
       'Measuring accuracy against a fixed evaluation corpus gave the team an objective target, not just a feel.',
-      'Standardized delivery templates created compounding returns — each rollout cost less than the one before.'
+      'Standardized delivery templates created compounding returns: each rollout cost less than the one before.'
     ]
   },
   {
     slug: 'furtados-eng',
     track: 'engineer',
     artwork: 'furtados',
-    title: 'Furtados — Embedded MIDI Hardware',
+    title: 'Furtados: Embedded MIDI Hardware',
     subtitle: 'Design-to-production integration for a 250K+ user music product',
     category: 'Systems Engineering / Hardware',
     tools: 'SolidWorks · Raspberry Pi · USB-MIDI · DIN-5',
@@ -162,7 +162,7 @@ export const projects = [
     lead: 'Led design-to-production integration as the sole systems engineer on an embedded MIDI product,',
     emphasis: 'shipping to 250K+ users within a $14K BOM target and 60ms latency constraint.',
     summary: 'Prototyped SolidWorks enclosure, assembled USB-MIDI and DIN-5 interfaces on Raspberry Pi, coordinated 5+ suppliers, resolved 15+ integration issues, and validated with 130+ pilot users.',
-    problem: 'An embedded MIDI product serving 250K+ users needed to be designed, sourced, and validated across electrical and mechanical constraints — within a $14K BOM target and 60ms end-to-end latency. No single engineer had owned the full hardware stack before.',
+    problem: 'An embedded MIDI product serving 250K+ users needed to be designed, sourced, and validated across electrical and mechanical constraints: within a $14K BOM target and 60ms end-to-end latency. No single engineer had owned the full hardware stack before.',
     approach: [
       ['Design the enclosure', 'Prototyped a space-constrained enclosure in SolidWorks within a 320×185×48 mm footprint. Sized for fit, assembly, and manufacturability across all internal components.'],
       ['Build the hardware', 'Soldered and assembled USB-MIDI and DIN-5 signal interfaces on Raspberry Pi. Coordinated with electrical and mechanical PMs to ensure subsystem compatibility within the latency constraint.'],
@@ -171,7 +171,7 @@ export const projects = [
     artifacts: ['SolidWorks enclosure prototype', 'Hardware assembly', 'Supplier qualification results', 'User validation report'],
     takeaways: [
       'Manufacturability constraints on the enclosure revealed fit issues that wouldn’t have surfaced until final assembly.',
-      'Supplier drawing reviews caught 15+ integration issues before release — most of which would have been expensive post-production.',
+      'Supplier drawing reviews caught 15+ integration issues before release: most of which would have been expensive post-production.',
       '130+ pilot users gave signal that the hardware feedback loop was working correctly before full deployment.'
     ]
   },
@@ -179,7 +179,7 @@ export const projects = [
     slug: 'furtados-pm',
     track: 'product',
     artwork: 'furtados',
-    title: 'Furtados — MIDI Product PM',
+    title: 'Furtados: MIDI Product PM',
     subtitle: 'Full product development cycle for a 250K+ user music experience',
     category: 'Product Management / Hardware',
     tools: 'User research · User stories · Supplier coordination · Acceptance criteria',
@@ -199,14 +199,14 @@ export const projects = [
     takeaways: [
       '130+ pilot users caught feedback loop failures that would have shipped otherwise.',
       'Making BOM and latency tradeoffs explicit up front prevented scope creep mid-cycle.',
-      'Supplier coordination at the PM level — not just engineering — closed issues 2x faster.'
+      'Supplier coordination at the PM level, not just engineering, closed issues 2x faster.'
     ]
   },
   {
     slug: 'cms-eng',
     track: 'engineer',
     artwork: 'cms',
-    title: 'CMS Info Systems — Inspection System',
+    title: 'CMS Info Systems: Inspection System',
     subtitle: 'Field-scale deployment validation across 70K endpoints',
     category: 'Systems Engineering',
     tools: 'Python · FMEA · Edge hardware · Data analysis',
@@ -216,7 +216,7 @@ export const projects = [
     lead: 'Validated field-scale deployment of an automated inspection system across 70K endpoints,',
     emphasis: 'achieving 98% accuracy at 3.8% FPR on edge hardware.',
     summary: 'Applied FMEA to define failure modes, calibrated detection threshold logic through structured data analysis, and produced documentation confirming deployment readiness across variable operating conditions.',
-    problem: 'An automated inspection system needed to be deployed across 70K endpoints with variable operating conditions. The challenge was confirming readiness without being able to test every environment — and defining what “good enough” accuracy actually meant.',
+    problem: 'An automated inspection system needed to be deployed across 70K endpoints with variable operating conditions. The challenge was confirming readiness without being able to test every environment: and defining what “good enough” accuracy actually meant.',
     approach: [
       ['Define failure modes', 'Applied FMEA to systematically identify failure modes across the deployment environment and confirm readiness criteria before calibration began.'],
       ['Calibrate the threshold', 'Ran structured data analysis to calibrate detection threshold logic, balancing accuracy against false positive rate. Selected a threshold achieving 98% accuracy at 3.8% FPR on Jetson Nano edge hardware.'],
@@ -225,15 +225,15 @@ export const projects = [
     artifacts: ['FMEA failure mode analysis', 'Threshold calibration results', 'Deployment readiness documentation'],
     takeaways: [
       'FMEA before calibration ensured the right failure modes were being measured, not just the convenient ones.',
-      'The accuracy/FPR tradeoff required an explicit decision — there was no threshold that optimized both.',
-      'Deployment documentation at scale requires structure, not just results — the format mattered as much as the findings.'
+      'The accuracy/FPR tradeoff required an explicit decision: there was no threshold that optimized both.',
+      'Deployment documentation at scale requires structure, not just results: the format mattered as much as the findings.'
     ]
   },
   {
     slug: 'cms-pm',
     track: 'product',
     artwork: 'cms',
-    title: 'CMS Info Systems — Deployment PM',
+    title: 'CMS Info Systems: Deployment PM',
     subtitle: 'Defining launch criteria for a 70K-endpoint rollout',
     category: 'Product Management',
     tools: 'Data analysis · Acceptance criteria · FMEA',
@@ -243,7 +243,7 @@ export const projects = [
     lead: 'Defined launch acceptance criteria for a 70K-endpoint deployment,',
     emphasis: 'balancing detection performance against user friction to select the right threshold.',
     summary: 'Scoped acceptance criteria, made the accuracy vs. false-positive-rate tradeoff decision, and produced documentation supporting the production rollout decision.',
-    problem: 'A 70K-endpoint automated inspection system needed clear launch criteria — but “good enough” accuracy wasn’t defined. The risk of setting it too high was delayed deployment; too low was user friction from false positives.',
+    problem: 'A 70K-endpoint automated inspection system needed clear launch criteria: but “good enough” accuracy wasn’t defined. The risk of setting it too high was delayed deployment; too low was user friction from false positives.',
     approach: [
       ['Define the tradeoff', 'Scoped launch acceptance criteria by mapping the accuracy vs. false-positive-rate tradeoff against actual user impact. Made the explicit decision to prioritize accuracy at 98% with a 3.8% FPR.'],
       ['Validate the decision', 'Ran structured data analysis to confirm the threshold held across variable operating conditions on edge hardware. Produced documentation supporting the rollout decision.'],
@@ -251,7 +251,7 @@ export const projects = [
     ],
     artifacts: ['Launch acceptance criteria', 'Threshold analysis', 'Rollout readiness documentation'],
     takeaways: [
-      'Acceptance criteria without a defined tradeoff framework aren’t criteria — they’re just aspirations.',
+      'Acceptance criteria without a defined tradeoff framework aren’t criteria: they’re just aspirations.',
       'The user friction cost of a false positive was higher than the accuracy cost of a true negative.',
       'Evidence-backed documentation was what made the rollout decision feel safe, not just the number.'
     ]
@@ -270,7 +270,7 @@ export const projects = [
     lead: 'Built a 45-member agentic AI consulting lab from scratch,',
     emphasis: 'delivering across 6 client engagements with 4 concurrent workstreams and a 33% reduction in delivery cycle time.',
     summary: 'Grew Revamp from 0 to 45 members, ran 30+ discovery calls, tracked delivery KPIs across 6 engagements, and built the operating infrastructure to make delivery repeatable.',
-    problem: 'Student consulting organizations typically lack the infrastructure to deliver consistently — each engagement is ad hoc, handoffs fail, and client quality varies wildly. The challenge was building something that could scale without becoming bureaucratic.',
+    problem: 'Student consulting organizations typically lack the infrastructure to deliver consistently: each engagement is ad hoc, handoffs fail, and client quality varies wildly. The challenge was building something that could scale without becoming bureaucratic.',
     approach: [
       ['Build the operating model', 'Designed sprint cycles, project intake, and client delivery infrastructure to standardize execution. Applied RICE prioritization to sequence roadmap decisions across all active engagements.'],
       ['Run discovery at scale', 'Ran 30+ discovery and stakeholder calls, converting ambiguous client needs into MVP requirements and sprint priorities. Kept scope tight enough to ship.'],
@@ -278,8 +278,8 @@ export const projects = [
     ],
     artifacts: ['Operating model', 'Client delivery infrastructure', 'KPI tracking system'],
     takeaways: [
-      'The operating model was the product — without it, quality would have degraded as we scaled.',
-      '30+ discovery calls taught me that ambiguous client problems aren’t unique — most compress into a small set of failure modes.',
+      'The operating model was the product: without it, quality would have degraded as we scaled.',
+      '30+ discovery calls taught me that ambiguous client problems aren’t unique: most compress into a small set of failure modes.',
       'A 33% cycle time reduction came from reducing handoff friction, not from working faster.'
     ]
   },
@@ -305,8 +305,8 @@ export const projects = [
     ],
     artifacts: ['User research synthesis', 'PRD and user stories', 'Post-launch metrics dashboard'],
     takeaways: [
-      '50 interviews were enough to identify the highest-leverage problem — more would have been diminishing returns.',
-      'Time-to-first-value was the leading indicator that predicted retention — fixing it moved both.',
+      '50 interviews were enough to identify the highest-leverage problem: more would have been diminishing returns.',
+      'Time-to-first-value was the leading indicator that predicted retention: fixing it moved both.',
       'Quantitative validation post-launch is what separated this from a guess.'
     ]
   },
@@ -321,19 +321,19 @@ export const projects = [
     role: 'Project Manager',
     timeline: 'Sep 2024 to May 2025',
     context: 'Illinois Business Consulting, UIUC',
-    lead: 'Led three distinct client engagements — KPMG talent pipeline design, Marmon Group office location analysis, and FraterIT full GTM strategy —',
+    lead: 'Led three distinct client engagements spanning KPMG talent pipeline design, Marmon Group office location analysis, and FraterIT full GTM strategy,',
     emphasis: 'each requiring different analytical frameworks and stakeholder management approaches.',
     summary: 'Designed university partnership frameworks for KPMG, built Power BI cluster maps and facilities models for a $400K Marmon office location decision, and led a 10-person team to deliver a full GTM strategy for FraterIT.',
     problem: 'Three structurally different problems: KPMG needed a repeatable framework for university partnerships; Marmon needed data-driven office location analysis under a $400K budget constraint; FraterIT needed a GTM strategy from scratch with no prior market research.',
     approach: [
       ['KPMG', 'Designed university partnership frameworks architecting recruiting pipelines, case competition sponsorship models, and research collaboration structures to formalize their academic talent pipeline.'],
-      ['Marmon Group', 'Led technical analysis for new office location — built cluster maps, facilities planning models, and cost/manpower constraint analyses in Power BI against a $400K budget.'],
+      ['Marmon Group', 'Led technical analysis for new office location: built cluster maps, facilities planning models, and cost/manpower constraint analyses in Power BI against a $400K budget.'],
       ['FraterIT', 'Led a 10-person team through ICP definition, competitive positioning, pricing strategy, sales playbook, and channel strategy. Delivered a prioritized market-entry strategy directly to the founder.']
     ],
     artifacts: ['KPMG partnership framework', 'Marmon Power BI cluster maps', 'FraterIT GTM strategy and playbook'],
     takeaways: [
       'Framework design for KPMG required understanding what they actually valued in university partnerships, not just what they asked for.',
-      'The Marmon location decision depended more on manpower constraints than cost — the Power BI model made that visible.',
+      'The Marmon location decision depended more on manpower constraints than cost: the Power BI model made that visible.',
       'A 10-person team on an ambiguous problem needs a structure for disagreement, not just for execution.'
     ]
   }

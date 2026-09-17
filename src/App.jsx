@@ -20,6 +20,7 @@ function Nav({route, section}) {
     { label: 'About', target: '#/', key: 'about', color: 'rose' },
     { label: 'Engineer', target: '#/engineer', key: 'engineer', color: 'peach' },
     { label: 'Product', target: '#/builder', key: 'builder', color: 'gold' },
+    { label: 'CAD', target: '#/cad', key: 'cad', color: 'cad' },
     { label: 'Contact', target: '#/contact', key: 'contact', color: 'sage' }
   ];
   return <header className="nav">
@@ -42,12 +43,43 @@ function Home() {
     <div className="right-leaf"><div className="reading-intro"><p className="eyebrow">Choose a reading path</p><h2>Two disciplines, <em>one point of view.</em></h2><p>Each volume gathers relevant internships, projects, and the thinking behind the work.</p></div><section className="library" aria-label="Choose a portfolio track"><BookCover track="engineer"/><BookCover track="builder"/></section><div className="leaf-foot"><span>Right leaf · Index</span><span>Open a volume</span></div></div>
   </section></>;
 }
-function ProjectCard({project:p}) { const art=(Array.isArray(p.visuals) ? p.visuals[0] : p.artwork) || p.slug; return <a className="project-card" href={href(`work/${p.slug}`)}><div className="project-image"><img src={`/assets/portfolio/${art}.svg`} alt={`Illustrative placeholder for ${p.title}`} loading="lazy"/><span className="image-caption">Read the chapter</span></div><div className="card-text"><span className="eyebrow">{p.category}</span><h3>{p.title}</h3><p>{p.summary}</p></div></a>; }
+const imageFiles = import.meta.glob(['/public/assets/portfolio/*', '/public/assets/images/*'], { eager: true, query: '?url', import: 'default' });
+function artworkUrl(name) {
+  const entry = Object.keys(imageFiles).find(path => path.split('/').pop() === name || path.split('/').pop().replace(/\.[^.]+$/, '') === name);
+  return entry ? imageFiles[entry] : null;
+}
+function ExpandableImage({ artwork, label, className = '' }) {
+  const dialog = useRef(null);
+  const [open, setOpen] = useState(false);
+  const [zoomed, setZoomed] = useState(false);
+  const src = artworkUrl(artwork);
+  useEffect(() => {
+    if (!open) return;
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    dialog.current.showModal();
+    return () => { document.body.style.overflow = overflow; };
+  }, [open]);
+  if (!src) return <div className={`image-placeholder ${className}`}><span>{label}</span><small>Image forthcoming</small></div>;
+  return <>
+    <button type="button" className={`image-preview ${className}`} onClick={() => { setZoomed(false); setOpen(true); }} aria-label={`Expand ${label}`}>
+      <img src={src} alt={label} loading="lazy"/><span className="expand-label">Expand image</span>
+    </button>
+    <dialog ref={dialog} className="image-dialog" aria-label={label} onClose={() => setOpen(false)} onClick={event => { if (event.target === event.currentTarget) dialog.current.close(); }}>
+      <div className="image-dialog-toolbar"><span>{label}</span><button type="button" onClick={() => setZoomed(value => !value)} aria-pressed={zoomed}>{zoomed ? 'Fit image' : 'Zoom in'}</button><button type="button" onClick={() => dialog.current.close()} autoFocus>Close</button></div>
+      <div className={`image-dialog-view ${zoomed ? 'is-zoomed' : ''}`}><img src={src} alt={label}/></div>
+    </dialog>
+  </>;
+}
+function ProjectCard({project:p}) {
+  const art=(Array.isArray(p.visuals) ? p.visuals[0] : p.artwork) || p.slug;
+  return <article className="project-card"><ExpandableImage artwork={art} label={p.title} className="project-image"/><a className="card-text" href={href(`work/${p.slug}`)}><span className="eyebrow">{p.category}</span><h3>{p.title}</h3><p>{p.summary}</p><span className="chapter-link">Read the chapter</span></a></article>;
+}
 function Track({track}) {
   const normalizedTrack = normalizeTrack(track);
   const t = tracks[normalizedTrack];
   const filteredProjects = projects.filter(p => normalizeTrack(p.track) === normalizedTrack);
-  return <><section className="track-hero"><a className="text-link" href={href()}>The collected works</a><p className="eyebrow">Vol. {t.volume} / {normalizedTrack==='engineer'?'Engineering':'Product management'}</p><h1>{normalizedTrack==='engineer'?'Engineering':'Product'}</h1><p>{t.intro}</p></section><section className="work-section"><div className="section-heading"><h2>Selected work</h2><span>{filteredProjects.length} chapters</span></div><div className="project-grid">{filteredProjects.map(p=><ProjectCard key={p.slug} project={p}/>)}</div><p className="art-note">Illustrative project artwork. Original screenshots and artifacts forthcoming.</p></section></>;
+  return <><section className="track-hero"><a className="text-link" href={href()}>The collected works</a><p className="eyebrow">Vol. {t.volume} / {normalizedTrack==='engineer'?'Engineering':'Product management'}</p><h1>{normalizedTrack==='engineer'?'Engineering':'Product'}</h1><p>{t.intro}</p></section><section className="work-section"><div className="section-heading"><h2>Selected work</h2><span>{filteredProjects.length} chapters</span></div><div className="project-grid">{filteredProjects.map(p=><ProjectCard key={p.slug} project={p}/>)}</div><p className="art-note">Select an image to expand it, or a chapter title to read the case study.</p></section></>;
 }
 function CaseStudy({project:p}) {
   const [activeSection, setActiveSection] = useState('problem');
@@ -64,7 +96,15 @@ function CaseStudy({project:p}) {
   const art = visuals[0];
   const artifactVisuals = visuals.length > 1 ? visuals.slice(1) : visuals;
   const artifactEntries = (p.artifacts || []).map((label, index) => ({ label, src: artifactVisuals[index % artifactVisuals.length] }));
-  return <article className="case-study"><section className="case-hero"><a className="text-link" href={href(normalizedTrack)}>Vol. {tracks[normalizedTrack].volume} / {tracks[normalizedTrack].name}</a><p className="eyebrow">{p.category}</p><h1>{p.title}<em>{p.subtitle}</em></h1><p className="case-lead">{p.lead} <strong>{p.emphasis}</strong></p><img className="case-hero-image" src={`/assets/portfolio/${art}.svg`} alt={`Illustrative overview of ${p.title}`}/></section><nav className="jump-nav" aria-label="Case study sections">{['Problem','Approach','Artifacts','Takeaways'].map(s=><button className={`ribbon ribbon-${({Problem:"rose",Approach:"peach",Artifacts:"gold",Takeaways:"sage"})[s]} ${activeSection===s.toLowerCase()?"is-active":""}`} aria-current={activeSection===s.toLowerCase()?"location":undefined} key={s} onClick={()=>{setActiveSection(s.toLowerCase());const el=document.getElementById(s.toLowerCase());el?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});el?.focus({preventScroll:true});}}><span>{s}</span><i aria-hidden="true"/></button>)}</nav><dl className="metadata">{[['Role',p.role],['Timeline',p.timeline],['Tools',p.tools],['Context',p.context]].map(([k,v])=><div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl><section id="problem" tabIndex="-1" className="problem-callout"><p className="eyebrow">The problem</p><h2>{p.problem}</h2></section><section id="approach" tabIndex="-1" className="case-section"><h2>The approach</h2><div className="approach-grid">{p.approach.map(([title,body])=><div key={title}><h3>{title}</h3><p>{body}</p></div>)}</div></section><section id="artifacts" tabIndex="-1" className="case-section"><div className="section-heading"><h2>Working artifacts</h2><span>Preview collection</span></div><div className="artifact-grid">{artifactEntries.map((a,i)=><figure key={a.label}><img src={`/assets/portfolio/${a.src}.svg`} alt={`Illustrative preview of ${a.label}`} className={i?'detail-crop':''}/><figcaption><strong>{a.label}</strong><span>Project artifact</span></figcaption></figure>)}</div></section><section id="takeaways" tabIndex="-1" className="case-section takeaways"><h2>What I’m taking forward</h2><ol>{p.takeaways.map(t=><li key={t}>{t}</li>)}</ol></section><div className="case-end"><a href={href(normalizedTrack)}>All {normalizedTrack==='engineer'?'engineering':'product'} work</a><a href={href('contact')}>Let’s talk about the work</a></div></article>; }
+  return <article className="case-study"><section className="case-hero"><a className="text-link" href={href(normalizedTrack)}>Vol. {tracks[normalizedTrack].volume} / {tracks[normalizedTrack].name}</a><p className="eyebrow">{p.category}</p><h1>{p.title}<em>{p.subtitle}</em></h1><p className="case-lead">{p.lead} <strong>{p.emphasis}</strong></p><ExpandableImage className="case-hero-image" artwork={art} label={p.title}/></section><nav className="jump-nav" aria-label="Case study sections">{['Problem','Approach','Artifacts','Takeaways'].map(s=><button className={`ribbon ribbon-${({Problem:"rose",Approach:"peach",Artifacts:"gold",Takeaways:"sage"})[s]} ${activeSection===s.toLowerCase()?"is-active":""}`} aria-current={activeSection===s.toLowerCase()?"location":undefined} key={s} onClick={()=>{setActiveSection(s.toLowerCase());const el=document.getElementById(s.toLowerCase());el?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});el?.focus({preventScroll:true});}}><span>{s}</span><i aria-hidden="true"/></button>)}</nav><dl className="metadata">{[['Role',p.role],['Timeline',p.timeline],['Tools',p.tools],['Context',p.context]].map(([k,v])=><div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl><section id="problem" tabIndex="-1" className="problem-callout"><p className="eyebrow">The problem</p><h2>{p.problem}</h2></section><section id="approach" tabIndex="-1" className="case-section"><h2>The approach</h2><div className="approach-grid">{p.approach.map(([title,body])=><div key={title}><h3>{title}</h3><p>{body}</p></div>)}</div></section><section id="artifacts" tabIndex="-1" className="case-section"><div className="section-heading"><h2>Working artifacts</h2><span>Preview collection</span></div><div className="artifact-grid">{artifactEntries.map(a=><figure key={a.label}><ExpandableImage artwork={a.src} label={a.label}/><figcaption><strong>{a.label}</strong><span>Project artifact</span></figcaption></figure>)}</div></section><section id="takeaways" tabIndex="-1" className="case-section takeaways"><h2>What I’m taking forward</h2><ol>{p.takeaways.map(t=><li key={t}>{t}</li>)}</ol></section><div className="case-end"><a href={href(normalizedTrack)}>All {normalizedTrack==='engineer'?'engineering':'product'} work</a><a href={href('contact')}>Let’s talk about the work</a></div></article>; }
+function CAD() {
+  const entries = [
+    { title: 'Black & Decker electrical screwdriver', video: true, date: 'December 2024', description: 'Reverse engineered the 4V MAX cordless screwdriver with a team using Fusion 360. Modelled eight parts, explored generative design for the handle, and modelled the orange handle using freeform tools.', images: [['thumbnail.png', 'Screwdriver assembly'], ['generative.png', 'Generative handle design'], ['orange.png', 'Freeform orange handle']] },
+    { title: 'Conveyor belt', date: '2025', description: 'Geometry and material trade-off studies for structural components, exploring robustness and weight as part of CAD work at UIUC’s Civil Engineering department.', images: [['whole belt.png', 'Complete conveyor belt'], ['face.png', 'Belt face'], ['robot.png', 'Robot assembly']] },
+    { title: 'Self-balancing robot', date: '2024', description: 'Designed a double-decker chassis and modelled the DC motors in Fusion 360, with space for the electronics and a focus on stability.', images: [['bot.png', 'Self-balancing robot'], ['chassis.png', 'Double-decker chassis']], pdf: true }
+  ];
+  return <section className="cad-page"><div className="track-hero"><a className="text-link" href={href()}>The collected works</a><p className="eyebrow">Models, mechanisms & making</p><h1>CAD portfolio</h1><p>A collection of models, assemblies, and design explorations. Select any image for a closer look.</p></div><nav className="cad-index" aria-label="CAD projects">{entries.map((entry,index)=><button key={entry.title} onClick={()=>scrollToSection(`cad-project-${index}`)}>{entry.title}</button>)}</nav>{entries.map((entry,index)=><section key={entry.title} id={`cad-project-${index}`} tabIndex="-1" className="case-section cad-project"><p className="eyebrow">{entry.date} · CAD exploration</p><h2>{entry.title}</h2><p className="cad-description">{entry.description}</p><div className="artifact-grid">{entry.images.map(([art,label])=><figure key={art}><ExpandableImage artwork={art} label={label}/><figcaption><strong>{label}</strong></figcaption></figure>)}</div>{entry.video&&<figure className="cad-video"><video controls playsInline preload="metadata" poster="/assets/images/thumbnail.png" aria-label="Screwdriver functionality demonstration"><source src="/assets/videos/Functionality%20demo.mp4" type="video/mp4"/></video><figcaption>Functionality demonstration</figcaption><a className="text-link" href="/assets/videos/Functionality%20demo.mp4" target="_blank" rel="noreferrer">Open video</a></figure>}{entry.pdf&&<a className="text-link cad-pdf" href="/assets/docs/self-balancing-robot.pdf" target="_blank" rel="noreferrer">Open robot project PDF</a>}</section>)}</section>;
+}
 function About() {
   return <section id="about" tabIndex="-1" className="author-preface">
     <div className="preface-heading"><p className="eyebrow">A note from the author</p><span>Champaign, Illinois</span></div>
@@ -74,7 +114,7 @@ function About() {
     </div><div className="preface-end" aria-hidden="true">✦</div>
   </section>;
 }
-function Contact() { return <section className="simple-page"><p className="eyebrow">Start a conversation</p><h1>Good work starts<br/><em>with a connection.</em></h1><p>For engineering, product, research, or a thoughtful exchange of ideas.</p><a className="contact-email" href={socials.email}>ditichhaproo@gmail.com</a><a className="contact-email" href={socials.schoolEmail}>djc11@illinois.edu</a><div className="inline-links"><a href={socials.linkedin} target="_blank" rel="noreferrer">LinkedIn</a><a href={socials.github} target="_blank" rel="noreferrer">GitHub</a></div><p className="eyebrow">Champaign, Illinois</p></section>; }
+function Contact() { return <section className="simple-page"><p className="eyebrow">Start a conversation</p><h1>Good work starts<br/><em>with a connection.</em></h1><p>For engineering, product, research, or a thoughtful exchange of ideas.</p><div className="contact-addresses"><div><p className="eyebrow">Personal</p><a className="contact-email" href={socials.email}>ditichhaproo@gmail.com</a></div><div><p className="eyebrow">University</p><a className="contact-email" href={socials.schoolEmail}>djc11@illinois.edu</a></div></div><div className="inline-links"><a href={socials.linkedin} target="_blank" rel="noreferrer">LinkedIn</a><a href={socials.github} target="_blank" rel="noreferrer">GitHub</a></div><p className="eyebrow">Champaign, Illinois</p></section>; }
 function Resume() { return <section className="simple-page"><p className="eyebrow">Experience, on paper</p><h1>The <em>résumé.</em></h1><p>An updated PDF will be added here soon.</p><p>Systems Engineering and Design · UIUC Grainger<br/>Spring 2028 · CS minor · Quantum SFO</p><a className="text-link" href="mailto:ditichhaproo@gmail.com?subject=Resume%20request">Request my resume</a><div className="inline-links"><a href={href('engineer')}>Explore engineering work</a><a href={href('builder')}>Explore product work</a></div></section>; }
 export default function App() {
   const [address, setAddress] = useState(() => location.hash.slice(2) || '');
@@ -98,9 +138,9 @@ export default function App() {
   const project = projects.find(p => route === `work/${p.slug}`);
   const isHome = route === '' || route === 'about';
   useEffect(() => {
-    document.title = `${project ? project.title : tracks[normalizedRoute]?.name || ({ contact: 'Contact', resume: 'Resume' }[route]) || 'Systems engineer. AI builder.'} | Diti Chhaproo`;
+    document.title = `${project ? project.title : tracks[normalizedRoute]?.name || ({ contact: 'Contact', resume: 'Resume', cad: 'CAD portfolio' }[route]) || 'Systems engineer. AI builder.'} | Diti Chhaproo`;
   }, [route, normalizedRoute, project]);
-  const page = isHome ? <Home/> : tracks[normalizedRoute] ? <Track track={normalizedRoute}/> : project ? <CaseStudy project={project}/> : route === 'contact' ? <Contact/> : route === 'resume' ? <Resume/> : <section className="simple-page"><h1>Page not found.</h1><a href={href()}>Return to the portfolio</a></section>;
+  const page = isHome ? <Home/> : tracks[normalizedRoute] ? <Track track={normalizedRoute}/> : project ? <CaseStudy project={project}/> : route === 'cad' ? <CAD/> : route === 'contact' ? <Contact/> : route === 'resume' ? <Resume/> : <section className="simple-page"><h1>Page not found.</h1><a href={href()}>Return to the portfolio</a></section>;
   return <div className={`site ${isHome ? 'home-site' : 'inner-site'} ${normalizedRoute === 'builder' || normalizeTrack(project?.track) === 'builder' ? 'builder-theme' : ''}`}>
     <a className="skip-link" href="#main" onClick={e => { e.preventDefault(); main.current?.focus(); }}>Skip to content</a>
     <Nav route={route} section={section}/>
