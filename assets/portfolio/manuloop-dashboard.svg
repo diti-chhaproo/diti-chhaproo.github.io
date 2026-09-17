@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="ManuLoop dashboard">
+  <rect width="1600" height="1000" fill="#f3f6fb"/>
+  <rect x="0" y="0" width="1600" height="80" fill="#071b30"/>
+  <text x="60" y="52" font-size="36" font-family="Arial, Helvetica, sans-serif" fill="#ffffff">ManuLoop</text>
+  <text x="730" y="52" font-size="24" font-family="Arial, Helvetica, sans-serif" fill="#dfeaf5">Design-time manufacturability analysis</text>
+  <rect x="120" y="120" width="1360" height="120" rx="14" fill="#ffffff"/>
+  <rect x="180" y="155" width="500" height="52" rx="8" fill="#eef2f7"/>
+  <text x="250" y="188" font-size="18" font-family="Arial, Helvetica, sans-serif" fill="#5b6473">OVERALL MANUFACTURABILITY SCORE</text>
+  <text x="770" y="188" font-size="60" font-family="Arial, Helvetica, sans-serif" fill="#d5483b">4.0</text>
+  <text x="820" y="188" font-size="36" font-family="Arial, Helvetica, sans-serif" fill="#5b6473">/100</text>
+  <text x="980" y="188" font-size="18" font-family="Arial, Helvetica, sans-serif" fill="#7b8190">Lower score indicates more risk</text>
+
+  <rect x="180" y="290" width="260" height="150" rx="12" fill="#ffffff"/>
+  <text x="236" y="335" font-size="18" font-family="Arial, Helvetica, sans-serif" fill="#5b6473">Violations by severity</text>
+  <rect x="220" y="360" width="60" height="50" fill="#e8f7ef"/>
+  <text x="250" y="395" text-anchor="middle" font-size="26" font-family="Arial, Helvetica, sans-serif" fill="#1ea96b">4</text>
+  <rect x="300" y="360" width="60" height="50" fill="#fff0ec"/>
+  <text x="330" y="395" text-anchor="middle" font-size="26" font-family="Arial, Helvetica, sans-serif" fill="#d5483b">8</text>
+  <rect x="380" y="360" width="60" height="50" fill="#f6f4e8"/>
+  <text x="410" y="395" text-anchor="middle" font-size="26" font-family="Arial, Helvetica, sans-serif" fill="#c48322">13</text>
+
+  <rect x="470" y="290" width="290" height="150" rx="12" fill="#ffffff"/>
+  <text x="560" y="335" font-size="18" font-family="Arial, Helvetica, sans-serif" fill="#5b6473">TOTAL VIOLATIONS</text>
+  <text x="625" y="395" text-anchor="middle" font-size="52" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">8</text>
+  <text x="625" y="420" text-anchor="middle" font-size="18" font-family="Arial, Helvetica, sans-serif" fill="#7b8190">Across 4 faces</text>
+
+  <rect x="820" y="290" width="600" height="150" rx="12" fill="#ffffff"/>
+  <text x="860" y="338" font-size="20" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">Issues requiring attention (4)</text>
+  <text x="860" y="368" font-size="14" font-family="Arial, Helvetica, sans-serif" fill="#75809a">Click a card to view details and recommendation.</text>
+
+  <g stroke="#e2e8f0" stroke-width="2">
+    <rect x="880" y="390" width="210" height="26" rx="6" fill="#fff1f0"/>
+    <rect x="1110" y="390" width="210" height="26" rx="6" fill="#fff9e8"/>
+    <rect x="1340" y="390" width="40" height="26" fill="#eef9f0"/>
+  </g>
+
+  <rect x="120" y="500" width="1360" height="420" rx="16" fill="#ffffff"/>
+  <text x="170" y="560" font-size="20" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">Issue inspector</text>
+  <rect x="170" y="600" width="760" height="220" rx="12" fill="#edf2f7"/>
+  <rect x="190" y="630" width="310" height="150" rx="10" fill="#f4f5f5"/>
+  <text x="240" y="690" font-size="28" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">Face 19</text>
+  <text x="240" y="728" font-size="18" font-family="Arial, Helvetica, sans-serif" fill="#d5483b">Through Hole</text>
+  <text x="240" y="758" font-size="18" font-family="Arial, Helvetica, sans-serif" fill="#637084">Hole-to-edge distance</text>
+  <text x="240" y="780" font-size="22" font-family="Arial, Helvetica, sans-serif" fill="#d5483b">-0.646 mm</text>
+
+  <rect x="560" y="600" width="300" height="220" rx="12" fill="#edf2f7"/>
+  <text x="590" y="648" font-size="18" font-family="Arial, Helvetica, sans-serif" fill="#74839a">Measured</text>
+  <text x="590" y="700" font-size="30" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">1.604 mm</text>
+  <text x="590" y="728" font-size="18" font-family="Arial, Helvetica, sans-serif" fill="#74839a">Required (min)</text>
+  <text x="590" y="780" font-size="28" font-family="Arial, Helvetica, sans-serif" fill="#d5483b">2.250 mm</text>
+
+  <rect x="1010" y="600" width="400" height="220" rx="12" fill="#edf2f7"/>
+  <text x="1040" y="648" font-size="20" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">Recommendation</text>
+  <text x="1040" y="690" font-size="20" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">Increase the distance from the hole center</text>
+  <text x="1040" y="720" font-size="20" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">to the nearest edge at least 2.25 mm.</text>
+  <text x="1040" y="780" font-size="18" font-family="Arial, Helvetica, sans-serif" fill="#6d7588">Engineering rationale</text>
+</svg>
