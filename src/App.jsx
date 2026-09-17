@@ -42,7 +42,7 @@ function Home() {
     <div className="right-leaf"><div className="reading-intro"><p className="eyebrow">Choose a reading path</p><h2>Two disciplines, <em>one point of view.</em></h2><p>Each volume gathers relevant internships, projects, and the thinking behind the work.</p></div><section className="library" aria-label="Choose a portfolio track"><BookCover track="engineer"/><BookCover track="builder"/></section><div className="leaf-foot"><span>Right leaf · Index</span><span>Open a volume</span></div></div>
   </section></>;
 }
-function ProjectCard({project:p}) { const art=p.artwork||p.slug; return <a className="project-card" href={href(`work/${p.slug}`)}><div className="project-image"><img src={`/assets/portfolio/${art}.svg`} alt={`Illustrative placeholder for ${p.title}`} loading="lazy"/><span className="image-caption">Read the chapter</span></div><div className="card-text"><span className="eyebrow">{p.category}</span><h3>{p.title}</h3><p>{p.summary}</p></div></a>; }
+function ProjectCard({project:p}) { const art=(Array.isArray(p.visuals) ? p.visuals[0] : p.artwork) || p.slug; return <a className="project-card" href={href(`work/${p.slug}`)}><div className="project-image"><img src={`/assets/portfolio/${art}.svg`} alt={`Illustrative placeholder for ${p.title}`} loading="lazy"/><span className="image-caption">Read the chapter</span></div><div className="card-text"><span className="eyebrow">{p.category}</span><h3>{p.title}</h3><p>{p.summary}</p></div></a>; }
 function Track({track}) {
   const normalizedTrack = normalizeTrack(track);
   const t = tracks[normalizedTrack];
