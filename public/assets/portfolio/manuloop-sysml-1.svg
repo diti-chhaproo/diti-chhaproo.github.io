@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="ManuLoop SysML diagram 1">
+  <rect width="1200" height="900" fill="#f5f5f1"/>
+  <g stroke="#1d232f" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="40" y="180" width="220" height="100" rx="12" fill="#ffffff"/>
+    <text x="150" y="225" text-anchor="middle" font-size="22" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">Mechanical Engineer</text>
+    <text x="150" y="255" text-anchor="middle" font-size="20" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">uploads STEP file</text>
+
+    <rect x="420" y="120" width="260" height="120" rx="12" fill="#ffffff"/>
+    <text x="550" y="165" text-anchor="middle" font-size="22" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">external system</text>
+    <text x="550" y="195" text-anchor="middle" font-size="21" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">MFCA++ Dataset</text>
+    <text x="550" y="220" text-anchor="middle" font-size="18" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">training data</text>
+
+    <rect x="430" y="350" width="240" height="170" rx="12" fill="#ffffff"/>
+    <text x="550" y="390" text-anchor="middle" font-size="32" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">ManuLoop</text>
+    <text x="550" y="430" text-anchor="middle" font-size="18" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">Geometry Processing</text>
+    <text x="550" y="455" text-anchor="middle" font-size="18" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">Manufacturability Assessment</text>
+    <text x="550" y="480" text-anchor="middle" font-size="18" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">Explainability Layer</text>
+    <text x="550" y="505" text-anchor="middle" font-size="18" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">Recommendation Engine</text>
+
+    <rect x="820" y="120" width="260" height="120" rx="12" fill="#ffffff"/>
+    <text x="950" y="165" text-anchor="middle" font-size="22" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">external system</text>
+    <text x="950" y="195" text-anchor="middle" font-size="21" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">SolidWorks</text>
+    <text x="950" y="220" text-anchor="middle" font-size="18" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">flagged features + redesign guidance</text>
+
+    <rect x="800" y="460" width="330" height="120" rx="12" fill="#ffffff"/>
+    <text x="965" y="500" text-anchor="middle" font-size="22" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">external system</text>
+    <text x="965" y="535" text-anchor="middle" font-size="21" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">FMEA Workbook</text>
+
+    <path d="M260 230 H420"/>
+    <path d="M550 240 V350"/>
+    <path d="M670 440 H800"/>
+    <path d="M550 520 V620"/>
+    <path d="M550 620 H310"/>
+    <path d="M310 620 V230"/>
+    <path d="M415 230 H550"/>
+    <path d="M680 440 H800"/>
+    <path d="M680 440 H760"/>
+    <path d="M760 440 V520"/>
+    <path d="M800 520 H690"/>
+    <path d="M550 620 H950"/>
+    <path d="M950 620 V460"/>
+    <path d="M815 180 H690"/>
+    <path d="M950 240 V460"/>
+    <path d="M550 520 V620"/>
+    <path d="M950 620 H1050"/>
+    <text x="330" y="210" font-size="18" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">manufacturability score + rects</text>
+    <text x="700" y="410" font-size="18" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">before/after RPN values</text>
+    <text x="350" y="630" font-size="18" font-family="Arial, Helvetica, sans-serif" fill="#1d232f">re-assessment (closes loop)</text>
+  </g>
+</svg>
