@@ -1,39 +1,37 @@
-# React + Vite Template
+# Diti Chhaproo Portfolio
 
-A modern React template for web applications and games, featuring React 18, Vite, TailwindCSS, and Material UI.
+A two-volume React/Vite portfolio for GitHub Pages. The fixed landing spread opens the Engineering and Product project indexes. Page turns, ribbon navigation, and book-cover interactions respect reduced-motion preferences.
 
-## Project Structure
+## Development
 
+- `npm install`
+- `npm run dev`
+- `npm run build`
+- `npm run lint`
+
+## Content
+
+`src/data/portfolio.js` contains the Engineering and Product project lists, case-study copy, track introductions, and social links. `src/App.jsx` contains the shared navigation, footer, book covers, project cards, and case-study template. Styling is in `src/index.css`.
+
+Hash routes support direct links and refreshes on GitHub Pages without server routing configuration. The existing GitHub Actions workflow deploys `dist` when changes reach `main`.
+
+## Publish to GitHub
+
+The files are already in the local clone at `/Users/ditichhaproo/Downloads/diti-chhaproo.github.io` and its remote is `https://github.com/diti-chhaproo/diti-chhaproo.github.io.git`.
+
+Review the changes, then publish them with:
+
+```bash
+git add README.md index.html src public/assets/portfolio package-lock.json
+git commit -m "Rebuild portfolio as two-volume site"
+git push origin main
 ```
-├── src/
-│   ├── App.jsx          # Main application component
-│   ├── main.jsx         # Application entry point
-│   └── index.css        # Global styles (Tailwind)
-├── public/              # Static assets
-├── index.html           # HTML template
-├── vite.config.js       # Vite configuration
-├── tailwind.config.js   # Tailwind configuration
-├── postcss.config.js    # PostCSS configuration
-└── eslint.config.js     # ESLint configuration
-```
 
-## Development Guidelines
+Pushing to `main` starts the existing GitHub Pages workflow.
 
-- Modify `index.html` and `src/App.jsx` as needed
-- Create new folders or files in `src/` directory as needed
-- Style components using TailwindCSS utility classes
-- Avoid modifying `src/main.jsx` and `src/index.css`
-- Only modify `vite.config.js` if absolutely necessary
+## Content awaiting final assets
 
-## Available Scripts
-- `pnpm install` - Install dependencies
-- `pnpm run dev` - Start development server
-- `pnpm run lint` - Lint source files
-
-## Tech Stack
-
-- React
-- Vite
-- TailwindCSS
-- ESLint
-- Javascript
+- Replace the illustrative SVGs in `public/assets/portfolio/` with original screenshots and artifact thumbnails. The site labels these as placeholders.
+- Add the updated resume PDF and replace the Resume placeholder page/link.
+- Supply missing project dates, currently labeled “Dates forthcoming.”
+- Review the drafted reflective takeaways before publication.
