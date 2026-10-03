@@ -44,10 +44,14 @@ function Home() {
     <div className="right-leaf"><div className="reading-intro"><p className="eyebrow">Choose a reading path</p><h2>Two disciplines, <em>one point of view.</em></h2><p>Each volume gathers relevant internships, projects, and the thinking behind the work.</p></div><section className="library" aria-label="Choose a portfolio track"><BookCover track="engineer"/><BookCover track="builder"/></section><div className="leaf-foot"><span>Right leaf · Index</span><span>Open a volume</span></div></div>
   </section></>;
 }
-const imageFiles = import.meta.glob(['/public/assets/portfolio/*', '/public/assets/images/*'], { eager: true, query: '?url', import: 'default' });
+const imageFiles = import.meta.glob(['/public/assets/portfolio/*', '/public/assets/images/*', '/public/assets/posts/*'], { eager: true, query: '?url', import: 'default' });
 function artworkUrl(name) {
+  if (!name) return null;
   const entry = Object.keys(imageFiles).find(path => path.split('/').pop() === name || path.split('/').pop().replace(/\.[^.]+$/, '') === name);
-  return entry ? imageFiles[entry] : null;
+  if (entry) return imageFiles[entry];
+  // Fall back to direct public URL for images added after the last build
+  const ext = name.includes('.') ? '' : '.png';
+  return `/assets/images/${name}${ext}`;
 }
 function ExpandableImage({ artwork, label, className = '' }) {
   const dialog = useRef(null);
@@ -113,7 +117,8 @@ const postsList = [
     tag: 'ISE REU · Research',
     title: 'Building a TMS Architecture Corpus: How I Approached the Problem',
     lead: 'Before you can train a generative model on thermal management system architectures, you need data. That data doesn\'t exist. So I built it.',
-    coverImage: 'tms-cover.png',
+    thumbnail: 'tms-cover.png',
+    coverImage: 'tms-comps.png',
     sections: [
       {
         heading: 'What is a Thermal Management System?',
@@ -132,7 +137,9 @@ const postsList = [
           'Gjoka, Tillman & Markopoulou, INFOCOM (2015) and IEEE/ACM Trans. Networking (2019) — joint degree methods',
           'Ma et al., NeurIPS (2018) — CGVAE, constrained graph variational autoencoder',
         ],
-        bodyAfter: 'From this I identified a family of candidate algorithms to test: Erdős-Rényi, joint degree graph, and Herber\'s perfect matching.'
+        bodyAfter: 'From this I identified a family of candidate algorithms to test: Erdős-Rényi, joint degree graph, and Herber\'s perfect matching.',
+        image: 'tms-graph-options.png',
+        imageLabel: 'Graph topology options surveyed in the literature'
       },
       {
         heading: 'Step 2: Building the Unified Sampler Interface',
@@ -140,12 +147,19 @@ const postsList = [
       },
       {
         heading: 'Step 3: 5,000 Trials Per Algorithm',
-        body: 'I ran 5,000 trials per algorithm and evaluated each output against physical feasibility constraints.',
-        listItems: [
-          'Erdős-Rényi: Produced graphs roughly 2.5× denser than valid TMS architectures. Feasibility rate of ~0.2%. No awareness of engineering constraints — useful only as a domain-agnostic baseline.',
-          'Joint degree graph: Better feasibility, but type-blind at the matching step. Type-to-degree assignment happens before the matching call, so the algorithm can\'t distinguish between two component types sharing the same degree. A Pump and a Valve both at degree 2 look identical to it. Structurally valid, physically wrong.',
-          'Herber\'s perfect matching: Strongest feasibility. Generated topologies that held up against TMS constraints consistently. But the output wasn\'t diverse enough — thousands of trials kept producing structurally similar graphs.',
-        ],
+        body: 'I ran 5,000 trials per algorithm and evaluated each output against physical feasibility constraints. Erdős-Rényi produced graphs roughly 2.5× denser than valid TMS architectures (feasibility rate ~0.2%) and served only as a domain-agnostic baseline. The more instructive comparison was between the two constrained approaches.',
+        table: {
+          headers: ['', 'Joint Degree', 'Herber-Marussy'],
+          rows: [
+            { label: 'Foundation', cols: ['NetworkX directed_joint_degree_graph', 'Herber, Guo & Allison (2017) + incremental backtracking from Marussy et al. (IEEE TSE, 2022)'] },
+            { label: 'Mechanism', cols: ['Configuration translated to joint degree dictionary; nodes given stubs equal to degree, paired randomly until all matched', 'Port pool (one port per degree slot per node); perfect matching with no-self-loop and no-multi-edge constraints'] },
+            { label: 'Type awareness', cols: ['Type-blind — matching operates on degree counts only; a Pump and a Valve at degree 2 look identical', 'Type-aware from the start; ports are typed before matching begins'] },
+            { label: 'Backtracking', cols: ['None', 'Up to 20 retries per unmatched port; backtracks to last valid checkpoint'] },
+            { label: 'Degree constraints', cols: ['Satisfied by construction', 'Satisfied by construction'] },
+            { label: 'Distinct structures / 5,000', cols: ['679', '4,067'] },
+            { label: 'Limitation', cols: ['Topological bias from type-blindness; structurally similar graphs recur', '6.6% of generated graphs are disconnected; need downstream filtering'] },
+          ]
+        },
         image: 'tms-algorithm-results.png',
         imageLabel: 'Algorithm feasibility comparison across 5,000 trials'
       },
@@ -176,6 +190,7 @@ function PostArticle({ post: p }) {
         <h2>{s.heading}</h2>
         {s.body.split('\n\n').map((para, i) => <p key={i}>{para}</p>)}
         {s.listItems && <ul className="post-list">{s.listItems.map(item => <li key={item}>{item}</li>)}</ul>}
+        {s.table && <div className="post-table-wrap"><table className="post-table"><thead><tr>{s.table.headers.map((h,i) => <th key={i}>{h}</th>)}</tr></thead><tbody>{s.table.rows.map(row => <tr key={row.label}><td className="post-table-label">{row.label}</td>{row.cols.map((c,i) => <td key={i}>{c}</td>)}</tr>)}</tbody></table></div>}
         {s.bodyAfter && <p>{s.bodyAfter}</p>}
         {s.image && <figure className="post-figure"><ExpandableImage artwork={s.image} label={s.imageLabel}/><figcaption>{s.imageLabel}</figcaption></figure>}
       </section>)}
@@ -186,7 +201,7 @@ function PostArticle({ post: p }) {
 function Posts() {
   return <section className="posts-index">
     <div className="track-hero"><a className="text-link" href={href()}>The collected works</a><p className="eyebrow">Writing & reflection</p><h1>Posts.</h1><p>Essays and notes from the work — research, engineering, and the thinking in between.</p></div>
-    <div className="posts-list">{postsList.map(p => <a key={p.slug} href={href(`posts/${p.slug}`)} className="post-card"><p className="eyebrow">{p.date} · {p.tag}</p><h2>{p.title}</h2><p>{p.lead}</p><span className="chapter-link">Read →</span></a>)}</div>
+    <div className="posts-list">{postsList.map(p => <a key={p.slug} href={href(`posts/${p.slug}`)} className="post-card">{p.thumbnail && artworkUrl(p.thumbnail) && <img src={artworkUrl(p.thumbnail)} alt={p.title} className="post-card-thumb"/>}<div className="post-card-text"><p className="eyebrow">{p.date} · {p.tag}</p><h2>{p.title}</h2><p>{p.lead}</p><span className="chapter-link">Read →</span></div></a>)}</div>
   </section>;
 }
 function About() {
