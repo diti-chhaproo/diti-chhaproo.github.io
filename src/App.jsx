@@ -106,8 +106,88 @@ function CAD() {
   ];
   return <section className="cad-page"><div className="track-hero"><a className="text-link" href={href()}>The collected works</a><p className="eyebrow">Models, mechanisms & making</p><h1>CAD portfolio</h1><p>A collection of models, assemblies, and design explorations. Select any image for a closer look.</p></div><nav className="cad-index" aria-label="CAD projects">{entries.map((entry,index)=><button key={entry.title} onClick={()=>scrollToSection(`cad-project-${index}`)}>{entry.title}</button>)}</nav>{entries.map((entry,index)=><section key={entry.title} id={`cad-project-${index}`} tabIndex="-1" className="case-section cad-project"><p className="eyebrow">{entry.date} · CAD exploration</p><h2>{entry.title}</h2><p className="cad-description">{entry.description}</p><div className="artifact-grid">{entry.images.map(([art,label])=><figure key={art}><ExpandableImage artwork={art} label={label}/><figcaption><strong>{label}</strong></figcaption></figure>)}</div>{entry.video&&<figure className="cad-video"><video controls playsInline preload="metadata" poster="/assets/images/thumbnail.png" aria-label="Screwdriver functionality demonstration"><source src="/assets/videos/Functionality%20demo.mp4" type="video/mp4"/></video><figcaption>Functionality demonstration</figcaption><a className="text-link" href="/assets/videos/Functionality%20demo.mp4" target="_blank" rel="noreferrer">Open video</a></figure>}{entry.pdf&&<a className="text-link cad-pdf" href="/assets/docs/self-balancing-robot.pdf" target="_blank" rel="noreferrer">Open robot project PDF</a>}</section>)}</section>;
 }
+const postsList = [
+  {
+    slug: 'tms-corpus',
+    date: 'Summer 2025',
+    tag: 'ISE REU · Research',
+    title: 'Building a TMS Architecture Corpus: How I Approached the Problem',
+    lead: 'Before you can train a generative model on thermal management system architectures, you need data. That data doesn\'t exist. So I built it.',
+    coverImage: 'tms-cover.png',
+    sections: [
+      {
+        heading: 'What is a Thermal Management System?',
+        body: 'A thermal management system (TMS) in a battery electric vehicle controls temperature across the vehicle\'s critical components: battery pack, motor, power electronics, cabin. The architecture of a TMS — which components connect to which and how fluid flows between them — directly impacts performance, range, and safety.\n\nDesigning a TMS architecture is not trivial. The design space is vast, physical constraints are strict, and engineers typically rely on experience and intuition to enumerate candidate architectures. The goal of this research is to automate that: to build a model that can generate valid TMS architectures from scratch.\n\nBut before you can train a generative model, you need data. That\'s where I came in.'
+      },
+      {
+        heading: 'The Problem: You Need a Corpus That Doesn\'t Exist',
+        body: 'A generative model needs examples to learn from: a diverse set of valid TMS architecture graph topologies. Valid meaning physically feasible — components connected in ways that respect flow direction, connectivity, and domain constraints. Diverse meaning architectures that actually explore the full design space, not variations of the same pattern.\n\nThis corpus doesn\'t exist off the shelf. So I had to build it.'
+      },
+      {
+        heading: 'Step 1: Literature Review',
+        body: 'The first question was: how do you generate graphs that are both valid and diverse? I ran a literature review across random graph generation algorithms, looking for approaches applied to constrained engineering domains.',
+        listItems: [
+          'Herber, Guo & Allison (2017) — perfect matching-based graph generation for engineering systems',
+          'Marussy, Semerath & Varro, IEEE TSE (2022) — diversity-aware graph generation',
+          'Gjoka, Tillman & Markopoulou, INFOCOM (2015) and IEEE/ACM Trans. Networking (2019) — joint degree methods',
+          'Ma et al., NeurIPS (2018) — CGVAE, constrained graph variational autoencoder',
+        ],
+        bodyAfter: 'From this I identified a family of candidate algorithms to test: Erdős-Rényi, joint degree graph, and Herber\'s perfect matching.'
+      },
+      {
+        heading: 'Step 2: Building the Unified Sampler Interface',
+        body: 'Rather than running each algorithm in isolation, I built a unified sampler interface in Python: a single system that calls any algorithm with consistent inputs and outputs, logs results, and evaluates feasibility against TMS constraints automatically.\n\nThis mattered because comparing algorithms fairly requires holding everything else constant. The interface let me run controlled experiments across all candidates and understand what each algorithm was actually doing differently.\n\nStack: Python, NetworkX, FastAPI backend, deployed on Render with a Lovable frontend for visualization.'
+      },
+      {
+        heading: 'Step 3: 5,000 Trials Per Algorithm',
+        body: 'I ran 5,000 trials per algorithm and evaluated each output against physical feasibility constraints.',
+        listItems: [
+          'Erdős-Rényi: Produced graphs roughly 2.5× denser than valid TMS architectures. Feasibility rate of ~0.2%. No awareness of engineering constraints — useful only as a domain-agnostic baseline.',
+          'Joint degree graph: Better feasibility, but type-blind at the matching step. Type-to-degree assignment happens before the matching call, so the algorithm can\'t distinguish between two component types sharing the same degree. A Pump and a Valve both at degree 2 look identical to it. Structurally valid, physically wrong.',
+          'Herber\'s perfect matching: Strongest feasibility. Generated topologies that held up against TMS constraints consistently. But the output wasn\'t diverse enough — thousands of trials kept producing structurally similar graphs.',
+        ],
+        image: 'tms-algorithm-results.png',
+        imageLabel: 'Algorithm feasibility comparison across 5,000 trials'
+      },
+      {
+        heading: 'Step 4: Finding the Gap and Fixing It',
+        body: 'Feasibility without diversity is a dead end. A model trained on structurally similar graphs will just learn to reproduce one pattern, which tells you nothing useful about the design space.\n\nThe problem with Herber\'s is that it has no mechanism to escape local structural patterns once it finds a valid solution. It converges, and stays there.\n\nMarussy\'s approach offered something Herber\'s didn\'t: backtracking. Where Herber\'s commits to a matching and moves on, Marussy\'s backtracking allows the algorithm to reverse earlier decisions when it hits a constraint, exploring parts of the graph space a greedy approach would never reach.\n\nI combined the two: Herber\'s perfect matching as the base generation mechanism, with Marussy\'s backtracking layered on top. The result was a corpus that was both physically feasible and meaningfully varied across the design space. That\'s what the final corpus is built on.',
+        image: 'tms-graph-topology.png',
+        imageLabel: 'Topology diversity in the combined-method corpus'
+      },
+      {
+        heading: 'What\'s Next',
+        body: 'With the corpus ready, the next phase is the generator itself. The plan is to bring an LLM into the architecture generation loop, training it on the corpus so it learns the physical design rules of a TMS well enough to generate valid architectures from scratch. Starting with smoke tests to identify the right base model, then fine-tuning.\n\nThis is what I\'m doing through the ISE REU. More on that as it develops.'
+      }
+    ]
+  }
+];
+function PostArticle({ post: p }) {
+  return <article className="post-article">
+    <div className="track-hero post-hero">
+      <a className="text-link" href={href('posts')}>Posts</a>
+      <p className="eyebrow">{p.date} · {p.tag}</p>
+      <h1>{p.title}</h1>
+      <p className="post-lead">{p.lead}</p>
+    </div>
+    {p.coverImage && <div className="post-cover-image"><ExpandableImage artwork={p.coverImage} label={p.title} className="post-cover"/></div>}
+    <div className="post-body">
+      {p.sections.map(s => <section key={s.heading} className="post-section">
+        <h2>{s.heading}</h2>
+        {s.body.split('\n\n').map((para, i) => <p key={i}>{para}</p>)}
+        {s.listItems && <ul className="post-list">{s.listItems.map(item => <li key={item}>{item}</li>)}</ul>}
+        {s.bodyAfter && <p>{s.bodyAfter}</p>}
+        {s.image && <figure className="post-figure"><ExpandableImage artwork={s.image} label={s.imageLabel}/><figcaption>{s.imageLabel}</figcaption></figure>}
+      </section>)}
+    </div>
+    <div className="case-end"><a href={href('posts')}>All posts</a><a href={href('contact')}>Get in touch</a></div>
+  </article>;
+}
 function Posts() {
-  return <section className="simple-page"><p className="eyebrow">Writing & reflection</p><h1>Posts.<br/><em>Coming soon.</em></h1><p>Essays, notes, and writing from the work — coming here soon.</p><div className="inline-links"><a href={href()}>Back to the portfolio</a><a href={href('contact')}>Get in touch</a></div></section>;
+  return <section className="posts-index">
+    <div className="track-hero"><a className="text-link" href={href()}>The collected works</a><p className="eyebrow">Writing & reflection</p><h1>Posts.</h1><p>Essays and notes from the work — research, engineering, and the thinking in between.</p></div>
+    <div className="posts-list">{postsList.map(p => <a key={p.slug} href={href(`posts/${p.slug}`)} className="post-card"><p className="eyebrow">{p.date} · {p.tag}</p><h2>{p.title}</h2><p>{p.lead}</p><span className="chapter-link">Read →</span></a>)}</div>
+  </section>;
 }
 function About() {
   return <section id="about" tabIndex="-1" className="author-preface">
@@ -144,7 +224,7 @@ export default function App() {
   useEffect(() => {
     document.title = `${project ? project.title : tracks[normalizedRoute]?.name || ({ contact: 'Contact', resume: 'Resume', cad: 'CAD portfolio', posts: 'Posts' }[route]) || 'Systems engineer. AI builder.'} | Diti Chhaproo`;
   }, [route, normalizedRoute, project]);
-  const page = isHome ? <Home/> : tracks[normalizedRoute] ? <Track track={normalizedRoute}/> : project ? <CaseStudy project={project}/> : route === 'cad' ? <CAD/> : route === 'posts' ? <Posts/> : route === 'contact' ? <Contact/> : route === 'resume' ? <Resume/> : <section className="simple-page"><h1>Page not found.</h1><a href={href()}>Return to the portfolio</a></section>;
+  const page = isHome ? <Home/> : tracks[normalizedRoute] ? <Track track={normalizedRoute}/> : project ? <CaseStudy project={project}/> : route === 'cad' ? <CAD/> : route === 'posts' ? <Posts/> : route.startsWith('posts/') ? (() => { const post = postsList.find(p => route === `posts/${p.slug}`); return post ? <PostArticle post={post}/> : <section className="simple-page"><h1>Post not found.</h1><a href={href('posts')}>Back to posts</a></section>; })() : route === 'contact' ? <Contact/> : route === 'resume' ? <Resume/> : <section className="simple-page"><h1>Page not found.</h1><a href={href()}>Return to the portfolio</a></section>;
   return <div className={`site ${isHome ? 'home-site' : 'inner-site'} ${normalizedRoute === 'builder' || normalizeTrack(project?.track) === 'builder' ? 'builder-theme' : ''}`}>
     <a className="skip-link" href="#main" onClick={e => { e.preventDefault(); main.current?.focus(); }}>Skip to content</a>
     <Nav route={route} section={section}/>
