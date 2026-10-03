@@ -21,6 +21,7 @@ function Nav({route, section}) {
     { label: 'Engineer', target: '#/engineer', key: 'engineer', color: 'peach' },
     { label: 'Product', target: '#/builder', key: 'builder', color: 'gold' },
     { label: 'CAD', target: '#/cad', key: 'cad', color: 'cad' },
+    { label: 'Posts', target: '#/posts', key: 'posts', color: 'sky' },
     { label: 'Contact', target: '#/contact', key: 'contact', color: 'sage' }
   ];
   return <header className="nav">
@@ -105,6 +106,9 @@ function CAD() {
   ];
   return <section className="cad-page"><div className="track-hero"><a className="text-link" href={href()}>The collected works</a><p className="eyebrow">Models, mechanisms & making</p><h1>CAD portfolio</h1><p>A collection of models, assemblies, and design explorations. Select any image for a closer look.</p></div><nav className="cad-index" aria-label="CAD projects">{entries.map((entry,index)=><button key={entry.title} onClick={()=>scrollToSection(`cad-project-${index}`)}>{entry.title}</button>)}</nav>{entries.map((entry,index)=><section key={entry.title} id={`cad-project-${index}`} tabIndex="-1" className="case-section cad-project"><p className="eyebrow">{entry.date} · CAD exploration</p><h2>{entry.title}</h2><p className="cad-description">{entry.description}</p><div className="artifact-grid">{entry.images.map(([art,label])=><figure key={art}><ExpandableImage artwork={art} label={label}/><figcaption><strong>{label}</strong></figcaption></figure>)}</div>{entry.video&&<figure className="cad-video"><video controls playsInline preload="metadata" poster="/assets/images/thumbnail.png" aria-label="Screwdriver functionality demonstration"><source src="/assets/videos/Functionality%20demo.mp4" type="video/mp4"/></video><figcaption>Functionality demonstration</figcaption><a className="text-link" href="/assets/videos/Functionality%20demo.mp4" target="_blank" rel="noreferrer">Open video</a></figure>}{entry.pdf&&<a className="text-link cad-pdf" href="/assets/docs/self-balancing-robot.pdf" target="_blank" rel="noreferrer">Open robot project PDF</a>}</section>)}</section>;
 }
+function Posts() {
+  return <section className="simple-page"><p className="eyebrow">Writing & reflection</p><h1>Posts.<br/><em>Coming soon.</em></h1><p>Essays, notes, and writing from the work — coming here soon.</p><div className="inline-links"><a href={href()}>Back to the portfolio</a><a href={href('contact')}>Get in touch</a></div></section>;
+}
 function About() {
   return <section id="about" tabIndex="-1" className="author-preface">
     <div className="preface-heading"><p className="eyebrow">A note from the author</p><span>Champaign, Illinois</span></div>
@@ -138,9 +142,9 @@ export default function App() {
   const project = projects.find(p => route === `work/${p.slug}`);
   const isHome = route === '' || route === 'about';
   useEffect(() => {
-    document.title = `${project ? project.title : tracks[normalizedRoute]?.name || ({ contact: 'Contact', resume: 'Resume', cad: 'CAD portfolio' }[route]) || 'Systems engineer. AI builder.'} | Diti Chhaproo`;
+    document.title = `${project ? project.title : tracks[normalizedRoute]?.name || ({ contact: 'Contact', resume: 'Resume', cad: 'CAD portfolio', posts: 'Posts' }[route]) || 'Systems engineer. AI builder.'} | Diti Chhaproo`;
   }, [route, normalizedRoute, project]);
-  const page = isHome ? <Home/> : tracks[normalizedRoute] ? <Track track={normalizedRoute}/> : project ? <CaseStudy project={project}/> : route === 'cad' ? <CAD/> : route === 'contact' ? <Contact/> : route === 'resume' ? <Resume/> : <section className="simple-page"><h1>Page not found.</h1><a href={href()}>Return to the portfolio</a></section>;
+  const page = isHome ? <Home/> : tracks[normalizedRoute] ? <Track track={normalizedRoute}/> : project ? <CaseStudy project={project}/> : route === 'cad' ? <CAD/> : route === 'posts' ? <Posts/> : route === 'contact' ? <Contact/> : route === 'resume' ? <Resume/> : <section className="simple-page"><h1>Page not found.</h1><a href={href()}>Return to the portfolio</a></section>;
   return <div className={`site ${isHome ? 'home-site' : 'inner-site'} ${normalizedRoute === 'builder' || normalizeTrack(project?.track) === 'builder' ? 'builder-theme' : ''}`}>
     <a className="skip-link" href="#main" onClick={e => { e.preventDefault(); main.current?.focus(); }}>Skip to content</a>
     <Nav route={route} section={section}/>
