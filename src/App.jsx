@@ -166,8 +166,6 @@ const postsList = [
       {
         heading: 'Step 4: Finding the Gap and Fixing It',
         body: 'Feasibility without diversity is a dead end. A model trained on structurally similar graphs will just learn to reproduce one pattern, which tells you nothing useful about the design space.\n\nThe problem with Herber\'s is that it has no mechanism to escape local structural patterns once it finds a valid solution. It converges, and stays there.\n\nMarussy\'s approach offered something Herber\'s didn\'t: backtracking. Where Herber\'s commits to a matching and moves on, Marussy\'s backtracking allows the algorithm to reverse earlier decisions when it hits a constraint, exploring parts of the graph space a greedy approach would never reach.\n\nI combined the two: Herber\'s perfect matching as the base generation mechanism, with Marussy\'s backtracking layered on top. The result was a corpus that was both physically feasible and meaningfully varied across the design space. That\'s what the final corpus is built on.',
-        image: 'tms-graph-topology.png',
-        imageLabel: 'Topology diversity in the combined-method corpus'
       },
       {
         heading: 'What\'s Next',
