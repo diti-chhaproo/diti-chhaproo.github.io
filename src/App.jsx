@@ -46,8 +46,12 @@ function Home() {
 }
 const imageFiles = import.meta.glob(['/public/assets/portfolio/*', '/public/assets/images/*', '/public/assets/posts/*'], { eager: true, query: '?url', import: 'default' });
 function artworkUrl(name) {
+  if (!name) return null;
   const entry = Object.keys(imageFiles).find(path => path.split('/').pop() === name || path.split('/').pop().replace(/\.[^.]+$/, '') === name);
-  return entry ? imageFiles[entry] : null;
+  if (entry) return imageFiles[entry];
+  // Fall back to direct public URL for images added after the last build
+  const ext = name.includes('.') ? '' : '.png';
+  return `/assets/images/${name}${ext}`;
 }
 function ExpandableImage({ artwork, label, className = '' }) {
   const dialog = useRef(null);
