@@ -44,7 +44,7 @@ function Home() {
     <div className="right-leaf"><div className="reading-intro"><p className="eyebrow">Choose a reading path</p><h2>Two disciplines, <em>one point of view.</em></h2><p>Each volume gathers relevant internships, projects, and the thinking behind the work.</p></div><section className="library" aria-label="Choose a portfolio track"><BookCover track="engineer"/><BookCover track="builder"/></section><div className="leaf-foot"><span>Right leaf · Index</span><span>Open a volume</span></div></div>
   </section></>;
 }
-const imageFiles = import.meta.glob(['/public/assets/portfolio/*', '/public/assets/images/*'], { eager: true, query: '?url', import: 'default' });
+const imageFiles = import.meta.glob(['/public/assets/portfolio/*', '/public/assets/images/*', '/public/assets/posts/*'], { eager: true, query: '?url', import: 'default' });
 function artworkUrl(name) {
   const entry = Object.keys(imageFiles).find(path => path.split('/').pop() === name || path.split('/').pop().replace(/\.[^.]+$/, '') === name);
   return entry ? imageFiles[entry] : null;
@@ -113,7 +113,8 @@ const postsList = [
     tag: 'ISE REU · Research',
     title: 'Building a TMS Architecture Corpus: How I Approached the Problem',
     lead: 'Before you can train a generative model on thermal management system architectures, you need data. That data doesn\'t exist. So I built it.',
-    coverImage: 'tms-cover.png',
+    thumbnail: 'tms-cover.png',
+    coverImage: 'tms-comps.png',
     sections: [
       {
         heading: 'What is a Thermal Management System?',
@@ -196,7 +197,7 @@ function PostArticle({ post: p }) {
 function Posts() {
   return <section className="posts-index">
     <div className="track-hero"><a className="text-link" href={href()}>The collected works</a><p className="eyebrow">Writing & reflection</p><h1>Posts.</h1><p>Essays and notes from the work — research, engineering, and the thinking in between.</p></div>
-    <div className="posts-list">{postsList.map(p => <a key={p.slug} href={href(`posts/${p.slug}`)} className="post-card"><p className="eyebrow">{p.date} · {p.tag}</p><h2>{p.title}</h2><p>{p.lead}</p><span className="chapter-link">Read →</span></a>)}</div>
+    <div className="posts-list">{postsList.map(p => <a key={p.slug} href={href(`posts/${p.slug}`)} className="post-card">{p.thumbnail && artworkUrl(p.thumbnail) && <img src={artworkUrl(p.thumbnail)} alt={p.title} className="post-card-thumb"/>}<div className="post-card-text"><p className="eyebrow">{p.date} · {p.tag}</p><h2>{p.title}</h2><p>{p.lead}</p><span className="chapter-link">Read →</span></div></a>)}</div>
   </section>;
 }
 function About() {

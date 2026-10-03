@@ -213,3 +213,11 @@
 .post-table td:not(.post-table-label){background:var(--paper)}
 .post-table td:nth-child(3){background:#f7f0e2}
 @media(max-width:700px){.post-table th:first-child{width:90px}.post-table th,.post-table td{padding:9px 10px;font-size:12px}}
+
+.post-card{display:grid;grid-template-columns:160px 1fr;gap:20px;align-items:start}
+.post-card-thumb{width:160px;aspect-ratio:4/3;object-fit:cover;border-radius:3px;filter:grayscale(.15)}
+.post-card-text .eyebrow{color:#c66e53;margin-bottom:10px}
+.post-card-text h2{font-size:27px;margin:0 0 10px;letter-spacing:-.5px}
+.post-card-text>p{font-size:14px;color:var(--muted);max-width:580px}
+.post-card-text .chapter-link{display:inline-block;margin-top:14px;font-size:11px;border-bottom:1px solid #b6a184;padding-bottom:4px}
+@media(max-width:700px){.post-card{grid-template-columns:1fr}.post-card-thumb{width:100%;aspect-ratio:16/9}}
