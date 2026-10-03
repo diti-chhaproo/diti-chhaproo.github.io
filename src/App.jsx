@@ -160,7 +160,7 @@ const postsList = [
             { label: 'Limitation', cols: ['Topological bias from type-blindness; structurally similar graphs recur', '6.6% of generated graphs are disconnected; need downstream filtering'] },
           ]
         },
-        image: 'tms-algorithm-results.png',
+        image: 'tms-algorithm-results.jpeg',
         imageLabel: 'Algorithm feasibility comparison across 5,000 trials'
       },
       {
