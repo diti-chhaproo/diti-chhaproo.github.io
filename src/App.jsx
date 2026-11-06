@@ -39,9 +39,9 @@ function Home() {
   return <><section className="open-book" aria-label="Portfolio introduction and reading paths">
     <div className="left-leaf">
       <div className="introduction"><figure className="intro-portrait"><img src="/me.jpeg" alt="Diti Chhaproo"/></figure><div className="intro-copy"><p className="eyebrow">Engineer, AI builder, reader</p><h1><span>I read</span><span>between the</span><span><em>lines,</em> then</span><span>build what</span><span>comes next.</span></h1><p>I’m Diti. I turn complicated questions into thoughtful systems and useful products.</p><p className="location-note">Champaign, Illinois — UIUC Grainger</p></div></div>
-      <div className="leaf-foot"><span>Left leaf · Introduction</span><span>Choose a volume</span></div>
+      <div className="leaf-foot"><span>Introduction</span><span>Choose a volume</span></div>
     </div>
-    <div className="right-leaf"><div className="reading-intro"><p className="eyebrow">Choose a reading path</p><h2>Two disciplines, <em>one point of view.</em></h2><p>Each volume gathers relevant internships, projects, and the thinking behind the work.</p></div><section className="library" aria-label="Choose a portfolio track"><BookCover track="engineer"/><BookCover track="builder"/></section><div className="leaf-foot"><span>Right leaf · Index</span><span>Open a volume</span></div></div>
+    <div className="right-leaf"><div className="reading-intro"><p className="eyebrow">Choose a reading path</p><h2>Two disciplines, <em>one point of view.</em></h2><p>Each volume gathers relevant internships, projects, and the thinking behind the work.</p></div><section className="library" aria-label="Choose a portfolio track"><BookCover track="engineer"/><BookCover track="builder"/></section><div className="leaf-foot"><span>Index</span><span>Open a volume</span></div></div>
   </section></>;
 }
 const imageFiles = import.meta.glob(['/public/assets/portfolio/*', '/public/assets/images/*', '/public/assets/posts/*'], { eager: true, query: '?url', import: 'default' });
